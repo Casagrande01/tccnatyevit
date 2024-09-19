@@ -1,0 +1,120 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center; /*CENTRALIZOU O SITE INTEIRO NO MEIO*/
+    margin: 10; /*LATERAL*/
+    
+}
+
+header {
+    display: flex;
+    align-items: center;/*centraliza*/
+    justify-content: space-around;/* justifica os conteudos no centro */
+}
+
+header, footer {
+    background-color: rgb(69, 71, 77); /*(cabeçalho) barra de cima que esta preta */
+    color: white;
+    padding: 10px 0; /* tamanho da barra */
+}
+
+header .logo { /*logo em geral*/
+    width: 20%; /*tamanho*/
+}
+
+header .logoMenu { /*somente a logho e menu*/
+    width: 60%;/*tamanho*/
+}
+
+header .espaco { /*espaço entre a logo e o menu*/
+    width: 20%;
+}
+
+nav a {
+    margin: 0 15px;
+    color: white; /*ABAS(sobre nos, placas etc)*/
+}
+
+
+section#home {
+    height: 75vh; /* define o tamanho do container */
+    display: flex; /* ffunciona de uma maneira diferente dos outros displays. Quando colocamos essa propriedade em um elemento, 
+    esse elemento se torna um flex container, 
+    a partir daí podemos manipular todos os elementos filhos desse flex container com propriedades novas.
+     no qual faz ficar responsivo */
+    align-items: center;  /* alinha os itens no centro */
+    justify-content: center; /* justifica os conteudos no centro */
+    background-image: url('./imagens/fundonovo2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+section#home .logomarca {
+    padding: 280px;
+    display: block;
+    font-size: 50px;
+}
+
+footer {
+    position: fixed;/*barra de baixo fixada*/
+    bottom: 0;/*posiciona o elemento da página na área inferior da tela*/
+    width: 100%; /*posição da barra de baixo, 100% ela aparece em toda a tela*/
+}
+
+form {
+    display: inline-block; /*LOGIN CENTRALIZADO NO MEIO*/
+    color: black;
+}
+
+.login-container{
+    background-color: white;
+    padding: 30px;
+    display: flex;
+    flex-direction: collum;
+
+    border-radius: 8px;
+}
+
+h3{
+    color: rgb(0, 0, 0);
+}
+p {
+    color: rgb(238, 255, 0);
+    font-size: 25px;
+}
+/*Formatação do menu principal*/
+
+nav.menu h3 {
+    display: none;
+}
+
+nav.menu ol {
+    list-style: none;
+    text-transform: uppercase;
+    position: absolute;
+    top: 120px;
+    right: 630px;
+}
+
+nav.menu li {
+    display: inline-block;
+    background-color: lightgray;
+    padding: 10px;
+    margin: 3px;
+    border-radius: 10px;
+    transition: background-color 2s, transform 1s;
+}
+
+nav.menu li:hover {
+    background-color: darkgray;
+    /*transform: rotatez(-25deg);*/
+}
+
+nav.menu a {
+    color: #000000;
+    text-decoration: none;
+}
+
+nav.menu a:hover {
+    color: white;
+    text-decoration: underline;
+}
