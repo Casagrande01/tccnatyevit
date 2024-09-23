@@ -9,7 +9,7 @@ CREATE TABLE usuario (
     datadenasc DATE NOT NULL,
     fone VARCHAR(255) NOT NULL,
     endereco VARCHAR(255) NOT NULL,
-    cpf/cnpj VARCHAR(255) NOT NULL
+    cpf_cnpj VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE produtos (
