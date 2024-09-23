@@ -71,5 +71,6 @@ CREATE TABLE ctrlfinanceiro (
     cod INT AUTO_INCREMENT PRIMARY KEY,
     tppagamento VARCHAR(255) NOT NULL,
     ctrlcaixa VARCHAR(255) NOT NULL,
-    ctrlmensal VARCHAR(255) NOT NULL  
+    ctrlmensal VARCHAR(255) NOT NULL,  
+    valor VARCHAR(255) NOT NULL 
 );
