@@ -22,7 +22,7 @@ CREATE TABLE produtos (
     valor INT NOT NULL,
     foto INT NOT NULL,
     dimensões INT NOT NULL,
-    material INT NOT NULL,
+    material INT NOT NULL
     
 );
 CREATE TABLE instalação (
@@ -35,7 +35,7 @@ CREATE TABLE instalação (
     valor VARCHAR(255) NOT NULL,
     equipamentos VARCHAR(255) NOT NULL,
     localizacao VARCHAR(255) NOT NULL,
-    tempo VARCHAR(255) NOT NULL,
+    tempo VARCHAR(255) NOT NULL
 );
 CREATE TABLE empresa (
     cod INT AUTO_INCREMENT PRIMARY KEY,
@@ -46,7 +46,7 @@ CREATE TABLE empresa (
     cnpj VARCHAR(255) NOT NULL,
     fundacao VARCHAR(255) NOT NULL,
     endereco VARCHAR(255) NOT NULL,
-    nome VARCHAR(255) NOT NULL,
+    nome VARCHAR(255) NOT NULL
 
 );
 
@@ -64,14 +64,12 @@ CREATE TABLE funcionario (
     comorbidade VARCHAR(255) NOT NULL,
     medicacao VARCHAR(255) NOT NULL,
     cttemergencia VARCHAR(255) NOT NULL,
-    alergia VARCHAR(255) NOT NULL,
+    alergia VARCHAR(255) NOT NULL
 
-)
+);
 CREATE TABLE ctrlfinanceiro (
     cod INT AUTO_INCREMENT PRIMARY KEY,
     tppagamento VARCHAR(255) NOT NULL,
     ctrlcaixa VARCHAR(255) NOT NULL,
-    ctrlmensal VARCHAR(255) NOT NULL,
-    
-    
-)
+    ctrlmensal VARCHAR(255) NOT NULL  
+);
