@@ -1,4 +1,5 @@
 const express = require('express');
+var path = require('path');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const expressLayouts = require('express-ejs-layouts');
@@ -12,6 +13,7 @@ const PORT = process.env.PORT || 3000;
 app.use(expressLayouts);
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
