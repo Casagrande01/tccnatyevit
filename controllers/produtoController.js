@@ -11,7 +11,7 @@ const produtoController = {
             marca: req.body.marca,
             valor: req.body.valor,
             foto: req.body.foto,
-            dimensões: req.body.dimensões,
+            dimensoes: req.body.dimensoes, // Corrigido 'dimensões' para 'dimensoes'
             material: req.body.material
         };
 
@@ -36,9 +36,9 @@ const produtoController = {
             res.render('produtos/show', { produto });
         });
     },
-    
+
     getAllProdutos: (req, res) => {
-        Produto.getAll((err, produtos) => { // Corrigido a sintaxe
+        Produto.getAll((err, produtos) => {
             if (err) {
                 return res.status(500).json({ error: err });
             }
@@ -47,7 +47,7 @@ const produtoController = {
     },
 
     renderCreateForm: (req, res) => {
-        res.render('produtos/create', { categorias });
+        res.render('produtos/create');
     },
 
     renderEditForm: (req, res) => {
@@ -60,13 +60,13 @@ const produtoController = {
             if (!produto) {
                 return res.status(404).json({ message: 'Produto not found' });
             }
-            res.render('produtos/edit', { produto, categorias });
+            res.render('produtos/edit', { produto });
         });
     },
 
     updateProduto: (req, res) => {
         const produtoId = req.params.id;
-        
+
         const updatedProduto = {
             nome: req.body.nome,
             descricao: req.body.descricao,
@@ -75,7 +75,7 @@ const produtoController = {
             marca: req.body.marca,
             valor: req.body.valor,
             foto: req.body.foto,
-            dimensões: req.body.dimensões,
+            dimensoes: req.body.dimensoes,
             material: req.body.material
         };
 

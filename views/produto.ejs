@@ -3,23 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>home  || LSMS Energia Solar</title>
+    <title>home || LSMS Energia Solar</title>
     <link rel="stylesheet" href="/estilos.css">
 </head>
 <body>
     <header>
         <div class="logo">
-            <img width="175" height="175" src="/public/imagens/logodaempresa.png" alt="">
+            <!-- Corrigido o caminho da imagem -->
+            <img width="175" height="175" src="/imagens/logodaempresa.png" alt="Logo da LSMS Energia Solar">
         </div>
         <div class="logoMenu">
             <h1>LSMS Energia Solar</h1>
             <nav class="menu">
                 <ol>                
-                    <li><a href="/index">Inicio</a></li>
-                    <li><a href="./sobre.ejs">Sobre</a></li>
-                    <li><a href="./produto.ejs">Produtos</a></li>
-                    <li><a href="./contato.ejs">Contato</a></li>
-                    <li><a href="./login.ejs">Login</a></li>
+                    <!-- Corrigidos os links para as rotas express -->
+                    <li><a href="/">Inicio</a></li>  
+                    <li><a href="/sobre">Sobre</a></li>  <!-- Rota sobre -->
+                    <li><a href="/produto">Produtos</a></li>  <!-- Rota produto -->
+                    <li><a href="/contato">Contato</a></li>  <!-- Rota contato -->
+                    <li><a href="/login">Login</a></li>  <!-- Rota login -->
                 </ol>
             </nav>  
         </div>
@@ -33,7 +35,6 @@
             <h3>LSMS Energia Solar</h3>
             <p>Less Spending More Sun</p>
         </div>
-        <!-- ul>li*3 -->
     </section>
     
     <footer>

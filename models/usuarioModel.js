@@ -2,8 +2,8 @@ const db = require('../config/db');
 
 const usuario = {
     create: (usuario, callback) => {
-        const query = 'INSERT INTO usuarios (nome) VALUES (?)';
-        db.query(query, [usuario.nome], (err, results) => {
+        const query = 'INSERT INTO usuarios (usuarioname, password, role) VALUES (?, ?, ?)';
+        db.query(query, [usuario.usuarioname, usuario.password, usuario.role], (err, results) => {
             if (err) {
                 return callback(err);
             }
@@ -22,18 +22,28 @@ const usuario = {
     },
 
     findByusuarioname: (nome, callback) => {
-        const query = 'SELECT * FROM usuarios WHERE nome = ?';
+        const query = 'SELECT * FROM usuarios WHERE usuarioname = ?';
         db.query(query, [nome], (err, results) => {
             if (err) {
                 return callback(err);
             }
-            callback(null, results[0]);
+            callback(null, results);
+        });
+    },
+
+    getAll: (callback) => {
+        const query = 'SELECT * FROM usuarios'; 
+        db.query(query, (err, results) => {
+            if (err) {
+                return callback(err);
+            }
+            callback(null, results);
         });
     },
 
     update: (id, usuario, callback) => {
-        const query = 'UPDATE usuarios SET nome = ? WHERE id = ?';
-        db.query(query, [usuario.nome,id], (err, results) => {
+        const query = 'UPDATE usuarios SET usuarioname = ?, password = ?, role = ? WHERE id = ?';
+        db.query(query, [usuario.usuarioname, usuario.password, usuario.role, id], (err, results) => {
             if (err) {
                 return callback(err);
             }
@@ -51,16 +61,15 @@ const usuario = {
         });
     },
 
-    getAll: (callback) => {
-        const query = 'SELECT * FROM usuarios';
-        db.query(query, (err, results) => {
+    searchByName: (name, callback) => {
+        const query = 'SELECT * FROM usuarios WHERE usuarioname LIKE ?';
+        db.query(query, [`%${name}%`], (err, results) => {
             if (err) {
                 return callback(err);
             }
             callback(null, results);
         });
-    },
+    }
 };
-
 
 module.exports = usuario;

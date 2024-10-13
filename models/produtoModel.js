@@ -12,7 +12,7 @@ const Produto = {
     },
 
     findById: (id, callback) => {
-        const query = 'SELECT * FROM produtos WHERE id = ?'; // Corrigido para incluir FROM
+        const query = 'SELECT * FROM produtos WHERE id = ?'; 
         db.query(query, [id], (err, results) => {
             if (err) {
                 return callback(err);
@@ -22,8 +22,8 @@ const Produto = {
     },
 
     update: (id, produto, callback) => {
-        const query = 'UPDATE produtos SET nome = ?, peso = ?, descricao = ?, validade = ?, marca = ?, valor = ?, foto = ?, dimensoes = ?, material = ? WHERE cod = ?'; // Removida vírgula extra
-        db.query(query, [produto.nome, produto.peso, produto.descricao, produto.validade, produto.marca, produto.valor, produto.foto, produto.dimensoes, produto.material, id], (err, results) => { // Alterado para usar id
+        const query = 'UPDATE produtos SET nome = ?, peso = ?, descricao = ?, validade = ?, marca = ?, valor = ?, foto = ?, dimensoes = ?, material = ? WHERE cod = ?';
+        db.query(query, [produto.nome, produto.peso, produto.descricao, produto.validade, produto.marca, produto.valor, produto.foto, produto.dimensoes, produto.material, id], (err, results) => {
             if (err) {
                 return callback(err);
             }
@@ -42,7 +42,7 @@ const Produto = {
     },
 
     getAll: (callback) => {
-        const query = 'SELECT * FROM produtos'; // Corrigido para selecionar todos os campos
+        const query = 'SELECT * FROM produtos'; 
         db.query(query, (err, results) => {
             if (err) {
                 return callback(err);
