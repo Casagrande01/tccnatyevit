@@ -1,7 +1,12 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;   
+} /* resetar o estilo*/ 
+
 body {
     font-family: Arial, sans-serif;
     text-align: center; /*CENTRALIZOU O SITE INTEIRO NO MEIO*/
-    margin: 10; /*LATERAL*/
     
 }
 
@@ -24,6 +29,7 @@ header .logo { /*logo em geral*/
 
 header .logoMenu { /*somente a logo e menu*/
     width: 60%;/*tamanho*/
+    color: rgb(217, 255, 0);
 }
 
 header .espaco { /*espaço entre a logo e o menu*/
@@ -35,7 +41,7 @@ nav a {
     color: white; /*ABAS(sobre nos, placas etc)*/
 }
 
-section#home {
+.home {
     height: 75vh; /* define o tamanho do container */
     display: flex; /* ffunciona de uma maneira diferente dos outros displays. Quando colocamos essa propriedade em um elemento, 
     esse elemento se torna um flex container, 
@@ -47,10 +53,22 @@ section#home {
     background-repeat: no-repeat;
     background-size: cover;
 }
+.home .logomarca p{
+    color:rgb(217, 255, 0);
+    font-size: 40px;
+}
 
-section#home .logomarca {
+.home form {
+    padding: 12px;
+    background-color: white;
+}
+
+.home form input {
+    width: 100%;
+}
+
+.home .logomarca {
     padding: 280px; /*espaçamento da tela*/
-   /* display: block;*/
     font-size: 50px;
 }
 
