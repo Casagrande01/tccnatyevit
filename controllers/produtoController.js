@@ -11,7 +11,7 @@ const produtoController = {
             marca: req.body.marca,
             valor: req.body.valor,
             foto: req.body.foto,
-            dimensoes: req.body.dimensoes, // Corrigido 'dimensões' para 'dimensoes'
+            dimensoes: req.body.dimensoes, 
             material: req.body.material
         };
 

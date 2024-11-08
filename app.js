@@ -7,8 +7,6 @@ const rotaUsuario = require('./routes/usuario');
 const rotaProduto = require('./routes/produto');
 const rotaIndex = require('./routes/index');
 
-
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -21,13 +19,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
-app.use('/usuario', rotaUsuario);
-app.use('/produto', rotaProduto);
+
 app.use('/', rotaIndex);
-
-
-
-
+app.use('/usuario', rotaUsuario);
+app.use('/produto', rotaProduto)
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
