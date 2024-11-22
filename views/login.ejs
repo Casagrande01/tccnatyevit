@@ -1,12 +1,10 @@
 <section class="home">
-    <form>
-        <h2>Login</h2>
-
-        <input name="nome" type="text" placeholder="Nome de usuário">
-        <input name="nome" type="text" placeholder="Senha">
+    <form action="/login" method="POST">
+        <h2 class="login">Login</h2>
+        <input name="usuarioname" type="text" placeholder="Nome de usuário">
+        <input name="password" type="password" placeholder="Senha">
         <div class="Login">
-            <p>Você não tem cadastro? <a href="cadastro">cadastra-se</a></p>
+            <p class="subtitulo">Você não tem cadastro? <a href="/cadastro">cadastra-se</a></p>
         </div>
     </form>
 </section>
-

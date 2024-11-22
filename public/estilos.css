@@ -10,6 +10,8 @@ body {
     
 }
 
+
+
 header {
     display: flex;
     align-items: center;/*centraliza*/
@@ -42,30 +44,40 @@ nav a {
 }
 
 .home {
-    height: 75vh; /* define o tamanho do container */
-    display: flex; /* ffunciona de uma maneira diferente dos outros displays. Quando colocamos essa propriedade em um elemento, 
-    esse elemento se torna um flex container, 
-    a partir daí podemos manipular todos os elementos filhos desse flex container com propriedades novas.
-     no qual faz ficar responsivo */
-    align-items: center;  /* alinha os itens no centro */
-    justify-content: center; /* justifica os conteudos no centro */
+    height: 75vh; /* Define o tamanho do container */
+    display: flex; /* Funciona de uma maneira diferente dos outros displays. Quando colocamos essa propriedade em um elemento,
+                    esse elemento se torna um flex container, a partir daí podemos manipular todos os elementos filhos desse flex container com propriedades novas.
+                    Isso torna o layout mais responsivo */
+    align-items: center;  /* Alinha os itens no centro */
+    justify-content: center; /* Justifica o conteúdo no centro */
     background-image: url('./imagens/fundonovo2.png');
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-size: auto; /* Ajusta a imagem ao tamanho original (ou o tamanho desejado) */
+    background-repeat: repeat; /* Faz a imagem se repetir tanto na vertical quanto na horizontal */
+    background-attachment: fixed; /* Faz com que a imagem fique fixa enquanto a rolagem acontece */
 }
+
 .home .logomarca p{
     color:rgb(217, 255, 0);
     font-size: 40px;
 }
+.login{
+    color: white;
+}
 
 .home form {
     padding: 12px;
-    background-color: white;
+    background-color: rgb(0, 0, 0);
+    border-radius: 12pt;
+    margin-bottom: 20%;
+}
+.subtitulo{
+    color: white;
 }
 
 .home form input {
     width: 100%;
 }
+
 
 .home .logomarca {
     padding: 280px; /*espaçamento da tela*/
@@ -121,6 +133,76 @@ nav.menu a:hover {
     color: white;
     text-decoration: underline;
 }
+.textosobre{
+    color: rgb(0, 0, 0);
+    font-size: 18px;
+    padding-top: 20pt;
+    
+
+}
+.titulo_sobre
+{
+    background-color: lightgray;
+    border-radius: 26pt;
+    padding: 12pt;
+}
+
+
+.sobre{
+    color: rgb(0, 0, 0);
+    font-size: 50px;
+    padding: 50px;
+    background-color: white;
+    border-radius: 12pt;
+    margin-left: 25%;
+    margin-right: 25%;
+
+
+
+}
+
+.produto_img
+{
+    width: 100%;
+    background-color: white;
+    padding: 50pt;
+    border-radius: 12pt;
+}
+
+div  p.nome_produto
+{
+    color: black;
+}
+
+.contato
+{
+    display: inline;
+    padding-top: 15%;
+}
+
+.foto_vi
+{
+    background-color: white;
+    padding: 100pt;
+    text-align: center;
+    padding-left: 10pt;
+    border-radius: 22pt;
+
+}
+
+.foto_nathy
+{
+    background-color: white;
+    padding: 100pt;
+    text-align: center;
+    margin-right: 10pt;
+    padding-bottom: 150pt;
+    border-radius: 22pt;
+
+}
+
+
+
 /*
 form {
     display: inline-block; /*LOGIN CENTRALIZADO NO MEIO
