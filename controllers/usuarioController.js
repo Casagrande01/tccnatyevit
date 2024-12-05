@@ -1,22 +1,39 @@
 const Usuario = require('../models/usuarioModel');
 
 const usuarioController = {
-    // Função para criar um novo usuário
     createUsuario: (req, res) => {
         const newUsuario = {
-            usuarioname: req.body.usuarioname,
+            nome: req.body.nome,
             email: req.body.email,
-            password: req.body.password,
-            role: req.body.role || 'user', // Valor default para role
+            senha: req.body.senha
         };
 
-        // Chama o método create do modelo para inserir o novo usuário no banco
         Usuario.create(newUsuario, (err, usuarioId) => {
             if (err) {
                 return res.status(500).json({ error: err });
             }
-            // Redireciona para a página de lista de usuários
             res.redirect('/usuarios');
+        });
+    },
+
+    // Função de login
+    loginUsuario: (req, res) => {
+        const loginUsuario = {
+            nome: req.body.nome,
+            senha: req.body.senha
+        };
+
+        Usuario.login(loginUsuario, (err, usuario) => {
+            if (err) {
+                return res.status(500).json({ error: err });
+            }
+            if (!usuario) {
+                return res.status(401).json({ message: 'Credenciais inválidas' });
+            }
+
+            req.session.usuarioCod = usuario.cod; 
+
+            res.redirect('/dashboard'); 
         });
     },
 
@@ -69,10 +86,9 @@ const usuarioController = {
     updateUsuario: (req, res) => {
         const usuarioId = req.params.id;
         const updatedUsuario = {
-            usuarioname: req.body.usuarioname,
+            nome: req.body.nome,
             email: req.body.email,
-            password: req.body.password,
-            role: req.body.role || 'user',
+            password: req.body.password
         };
 
         Usuario.update(usuarioId, updatedUsuario, (err) => {

@@ -3,12 +3,32 @@ const db = require('../config/db');
 const usuario = {
     // Função para criar um novo usuário
     create: (usuario, callback) => {
-        const query = 'INSERT INTO usuarios (usuarioname, email, password, role) VALUES (?, ?, ?, ?)';
-        db.query(query, [usuario.usuarioname, usuario.email, usuario.password, usuario.role], (err, results) => {
+        const query = 'INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)';
+        db.query(query, [usuario.nome, usuario.email, usuario.senha], (err, results) => {
             if (err) {
                 return callback(err);
             }
-            callback(null, results.insertId); // Retorna o ID do usuário criado
+            callback(null, results.insertId)
+        });
+    },
+
+    // Função para realizar o login
+    login: (usuario, callback) => {
+        const query = 'SELECT * FROM usuarios WHERE nome = ?';
+        db.query(query, [usuario.nome], (err, results) => {
+            if (err) {
+                return callback(err);
+            }
+            if (results.length === 0) {
+                return callback(null, null); 
+            }
+
+            const user = results[0];
+
+            if (user.senha !== usuario.senha) {
+                return callback(null, null); 
+            }
+            callback(null, user);
         });
     },
 
@@ -24,8 +44,8 @@ const usuario = {
     },
 
     // Função para buscar um usuário pelo nome de usuário
-    findByusuarioname: (nome, callback) => {
-        const query = 'SELECT * FROM usuarios WHERE usuarioname = ?';
+    findBynome: (nome, callback) => {
+        const query = 'SELECT * FROM usuarios WHERE nome = ?';
         db.query(query, [nome], (err, results) => {
             if (err) {
                 return callback(err);
@@ -47,8 +67,8 @@ const usuario = {
 
     // Função para atualizar um usuário
     update: (id, usuario, callback) => {
-        const query = 'UPDATE usuarios SET usuarioname = ?, email = ?, password = ?, role = ? WHERE id = ?';
-        db.query(query, [usuario.usuarioname, usuario.email, usuario.password, usuario.role, id], (err, results) => {
+        const query = 'UPDATE usuarios SET nome = ?, email = ?, password = ?, role = ? WHERE id = ?';
+        db.query(query, [usuario.nome, usuario.email, usuario.password, usuario.role, id], (err, results) => {
             if (err) {
                 return callback(err);
             }
@@ -69,7 +89,7 @@ const usuario = {
 
     // Função para buscar usuários por nome (como pesquisa)
     searchByName: (name, callback) => {
-        const query = 'SELECT * FROM usuarios WHERE usuarioname LIKE ?';
+        const query = 'SELECT * FROM usuarios WHERE nome LIKE ?';
         db.query(query, [`%${name}%`], (err, results) => {
             if (err) {
                 return callback(err);

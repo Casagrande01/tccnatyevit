@@ -21,7 +21,7 @@ app.use(methodOverride('_method'));
 
 
 app.use('/', rotaIndex);
-app.use('/usuario', rotaUsuario);
+app.use('/usuarios', rotaUsuario);
 app.use('/produto', rotaProduto)
 
 app.listen(PORT, () => {
