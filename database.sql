@@ -2,14 +2,11 @@ CREATE DATABASE LSMS;
 
 USE LSMS;
 
-CREATE TABLE usuario (
+CREATE TABLE usuarios (
     cod INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    datadenasc DATE NOT NULL,
-    fone VARCHAR(255) NOT NULL,
-    endereco VARCHAR(255) NOT NULL,
-    cpf_cnpj VARCHAR(255) NOT NULL
+    senha VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE produtos (

@@ -128,8 +128,6 @@ form .btn:hover {
 }
 
 footer {
-    position: fixed;
-    bottom: 0;
     width: 100%;
 }
 
@@ -292,4 +290,39 @@ nav.menu a:hover {
     line-height: 1.6;
     font-weight: 400;
     text-align: justify;
+}
+
+/* LOJA INDEX.JS */
+
+.loja {
+    border-top: 2px solid #2c2c2c;
+    padding: 20px 0px;
+}
+
+.loja h2 {
+    color: #121212;
+    font-size: 35px;
+    font-weight: 700;
+}
+
+.loja .box-items {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 15px;
+}
+
+.loja .box-items .box-item h3 {
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.box-item {
+    margin: 20px;
+}
+
+.loja .box-items .box-item a {
+    padding: 10px 40px;
+    background-color: #007bff;
+    border-radius: 5px;
+    color: white;
 }
