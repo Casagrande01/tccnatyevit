@@ -21,7 +21,7 @@ header, footer {
     padding: 10px 0;
 }
 
-header .logo {
+header .logo { /*distancia da lsms da logo*/
     width: 20%;
 }
 
@@ -53,7 +53,7 @@ nav a {
 
 .home .logomarca p {
     color: rgb(217, 255, 0);
-    font-size: 40px;
+    font-size: 100px;
 }
 
 form {
@@ -326,3 +326,15 @@ nav.menu a:hover {
     border-radius: 5px;
     color: white;
 }
+.barra-topo {
+    width: 100%;
+    height: 3px;  /* Tamanho da barra */
+    background-color: #FFD700;  /* Cor amarela */
+   
+}
+.carousel-item img {
+    width: 100%; /* Manter a largura cheia */
+    height: 500px; /* Definir a altura fixa para as imagens */
+    object-fit: cover; /* Garantir que a imagem se ajuste sem distorção */
+}
+
