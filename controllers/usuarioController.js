@@ -8,11 +8,11 @@ const usuarioController = {
             senha: req.body.senha
         };
 
-        Usuario.create(newUsuario, (err, usuarioId) => {
+        Usuario.create(newUsuario, (err) => {
             if (err) {
                 return res.status(500).json({ error: err });
             }
-            res.redirect('/usuarios');
+            res.redirect('/dashboard');
         });
     },
 

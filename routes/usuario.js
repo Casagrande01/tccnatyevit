@@ -6,7 +6,7 @@ router.get('/', usuarioController.getAllUsuarios);
 
 router.get('/create', usuarioController.renderCreateForm);
 
-router.post('/', usuarioController.createUsuario);
+router.post('/cadastro', usuarioController.createUsuario);
 router.post('/login', usuarioController.loginUsuario);
 
 router.get('/edit/:id', usuarioController.renderEditForm);

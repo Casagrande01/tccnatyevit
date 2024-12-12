@@ -1,49 +1,72 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>home || LSMS Energia Solar</title>
+    <title>LSMS Energia Solar</title>
 
     <link rel="stylesheet" href="/estilos.css">
 
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.19/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/388f611981.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
 
     <header>
         <div class="logo">
-            <img width="175" height="175" src="/imagens/logodaempresa.png" alt="Logo da LSMS Energia Solar">
+            <a href="/"><img width="175" height="175" src="/imagens/logodaempresa.png" alt="Logo da LSMS Energia Solar"></a>
         </div>
-        <div class="logoMenu">
-            <h1>LSMS Energia Solar</h1>
-            <nav class="menu">
-                <ol>                
-                    <!-- Corrigidos os links para as rotas express -->
-                    <li><a href="/">Inicio</a></li>  
-                    <li><a href="/sobre">Sobre</a></li>  <!-- Rota sobre -->
-                    <!-- <li><a href="/produto">Produtos</a></li>  Rota produto -->
-                    <li><a href="/contato">Contato</a></li>  <!-- Rota contato -->
-                    <li><a href="/login">Login</a></li>  <!-- Rota login -->
-                </ol>
-            </nav>  
-            
-   
+        <div class="logoMenu flex">
+            <h2>LSMS Energia Solar</h2>
+            <img class="imagem-pequena" src="/imagens/sol2.png" alt="Ícone pequeno ao lado do título" width="30" height="30">
         </div>
         <div class="espaco">
-            <br>
+            <a href="/carrinho" style="margin-right: 20px;"><i class="fa-solid fa-cart-shopping"></i></a>
+            <a href="/login"><i class="fa-solid fa-circle-user"></i></a>
         </div>
     </header>
 
-    
-    <!-- Barra amarela abaixo do cabeçalho -->
     <div class="barra-topo"></div>
 
     <main><%- body %></main>
-    
+
     <footer>
+        
+        <div class="sobre">
+          
+        </div>
+        <div class="contato">
+            <div class="foto_nathy">
+               
+                <p>Náthany Amabille Casagrande. Socia da empresa LSMS& programadora.
+        
+                    LSMS vendas e instalações!
+        
+                    ENTRE EM CONTATO CONOSCO!
+                    48 996253524
+                </p>
+        
+        
+            </div>
+        
+            <div class="foto_vi">
+                
+        
+                <p>Vitória Scheffer. Socia da empresa LSMS & publicitária.
+        
+                    LSMS vendas e instalações!
+        
+                    ENTRE EM CONTATO CONOSCO!
+                    48 996056650
+                </p>
+                
+            </div>
+        </div>
         <p>&copy; 2024 LSMS Energia Solar</p>
     </footer>
 </body>
+
 </html>

@@ -1,0 +1,44 @@
+<section>
+  <!-- Carrinho de Compras -->
+  <section class="carrinho bg-gray-100 p-8 rounded-lg">
+    <h2 class="text-2xl font-semibold text-center mb-6">Carrinho de Compras</h2>
+    <div id="carrinho" class="bg-white p-4 rounded-lg shadow-md">
+      <p class="text-gray-500 text-center">Seu carrinho está vazio. Adicione itens para começar a compra.</p>
+    </div>
+    <div class="mt-6 flex justify-between">
+      <span class="text-xl font-semibold">Total: <span id="total">R$ 0,00</span></span>
+      <button class="btn btn-primary py-2 px-6 rounded-md">Finalizar Compra</button>
+    </div>
+  </section>
+</section>
+
+<script>
+    // Carrinho de compras
+    let carrinho = [];
+    let total = 0;
+    
+    function adicionarAoCarrinho(nome, preco) {
+      carrinho.push({ nome, preco });
+      total += preco;
+    
+      // Atualiza o carrinho na tela
+      atualizarCarrinho();
+    }
+    
+    function atualizarCarrinho() {
+      const carrinhoDiv = document.getElementById('carrinho');
+      const totalSpan = document.getElementById('total');
+    
+      // Exibe os itens do carrinho
+      if (carrinho.length === 0) {
+        carrinhoDiv.innerHTML = '<p class="text-gray-500 text-center">Seu carrinho está vazio. Adicione itens para começar a compra.</p>';
+      } else {
+        carrinhoDiv.innerHTML = carrinho.map(item => {
+          return `<p>${item.nome} - R$ ${item.preco.toFixed(2)}</p>`;
+        }).join('');
+      }
+    
+      // Atualiza o total
+      totalSpan.innerText = `R$ ${total.toFixed(2)}`;
+    }
+    </script>

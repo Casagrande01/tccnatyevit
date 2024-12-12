@@ -5,6 +5,7 @@ const methodOverride = require('method-override');
 const expressLayouts = require('express-ejs-layouts');
 const rotaUsuario = require('./routes/usuario');
 const rotaProduto = require('./routes/produto');
+const rotaCarrinho = require('./routes/carrinho');
 const rotaIndex = require('./routes/index');
 
 const app = express();
@@ -22,7 +23,8 @@ app.use(methodOverride('_method'));
 
 app.use('/', rotaIndex);
 app.use('/usuarios', rotaUsuario);
-app.use('/produto', rotaProduto)
+app.use('/produto', rotaProduto);
+app.use('/carrinho', rotaCarrinho);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
