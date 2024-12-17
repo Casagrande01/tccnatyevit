@@ -26,4 +26,9 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 
+router.get('/teladecadastro', function(req, res, next) {
+  res.render('teladecadastro');
+});
+
+
 module.exports = router;
