@@ -2,42 +2,42 @@ const Usuario = require('../models/usuarioModel');
 
 const usuarioController = {
     createUsuario: (req, res) => {
-        const newUsuario = {
-            nome: req.body.nome,
-            email: req.body.email,
-            senha: req.body.senha
-        };
+        const { nome, email, senha, role } = req.body;
+
+        if (!nome || !email || !senha || !role) {
+            return res.status(400).json({ message: 'Todos os campos são obrigatórios.' });
+        }
+
+        const newUsuario = { nome, email, senha, role };
 
         Usuario.create(newUsuario, (err) => {
             if (err) {
-                return res.status(500).json({ error: err });
+                return res.status(500).json({ error: 'Erro ao criar usuário.' });
             }
             res.redirect('/dashboard');
         });
     },
 
-    // Função de login
     loginUsuario: (req, res) => {
-        const loginUsuario = {
-            nome: req.body.nome,
-            senha: req.body.senha
-        };
+        const { nome, senha } = req.body;
 
-        Usuario.login(loginUsuario, (err, usuario) => {
+        if (!nome || !senha) {
+            return res.status(400).json({ message: 'Nome e senha são obrigatórios.' });
+        }
+
+        Usuario.login({ nome, senha }, (err, usuario) => {
             if (err) {
-                return res.status(500).json({ error: err });
+                return res.status(500).json({ error: 'Erro ao tentar logar.' });
             }
             if (!usuario) {
-                return res.status(401).json({ message: 'Credenciais inválidas' });
+                return res.status(401).json({ message: 'Nome de usuário ou senha incorretos.' });
             }
 
-            req.session.usuarioCod = usuario.cod; 
-
+            req.session.usuarioId = usuario.id; 
             res.redirect('/dashboard'); 
         });
     },
 
-    // Função para obter um usuário pelo ID
     getUsuarioById: (req, res) => {
         const usuarioId = req.params.id;
 
@@ -46,13 +46,12 @@ const usuarioController = {
                 return res.status(500).json({ error: err });
             }
             if (!usuario) {
-                return res.status(404).json({ message: 'Usuario não encontrado' });
+                return res.status(404).json({ message: 'Usuário não encontrado' });
             }
             res.render('usuarios/show', { usuario });
         });
     },
 
-    // Função para obter todos os usuários
     getAllUsuarios: (req, res) => {
         Usuario.getAll((err, usuarios) => {
             if (err) {
@@ -62,12 +61,10 @@ const usuarioController = {
         });
     },
 
-    // Função para renderizar o formulário de criação
     renderCreateForm: (req, res) => {
         res.render('usuarios/create');
     },
 
-    // Função para renderizar o formulário de edição
     renderEditForm: (req, res) => {
         const usuarioId = req.params.id;
 
@@ -76,19 +73,19 @@ const usuarioController = {
                 return res.status(500).json({ error: err });
             }
             if (!usuario) {
-                return res.status(404).json({ message: 'Usuario não encontrado' });
+                return res.status(404).json({ message: 'Usuário não encontrado' });
             }
             res.render('usuarios/edit', { usuario });
         });
     },
 
-    // Função para atualizar um usuário
     updateUsuario: (req, res) => {
         const usuarioId = req.params.id;
         const updatedUsuario = {
             nome: req.body.nome,
             email: req.body.email,
-            password: req.body.password
+            senha: req.body.senha,
+            role: req.body.role,
         };
 
         Usuario.update(usuarioId, updatedUsuario, (err) => {
@@ -99,7 +96,6 @@ const usuarioController = {
         });
     },
 
-    // Função para deletar um usuário
     deleteUsuario: (req, res) => {
         const usuarioId = req.params.id;
 
@@ -111,7 +107,6 @@ const usuarioController = {
         });
     },
 
-    // Função para buscar usuários por nome
     searchUsuarios: (req, res) => {
         const search = req.query.search || '';
 
@@ -120,6 +115,31 @@ const usuarioController = {
                 return res.status(500).json({ error: err });
             }
             res.json({ usuarios });
+        });
+    },
+
+    getDashboard: (req, res) => {
+        const usuarioId = req.session.usuarioId;
+
+        if (!usuarioId) {
+            return res.redirect('/usuarios/login'); 
+        }
+
+        Usuario.findById(usuarioId, (err, usuario) => {
+            if (err || !usuario) {
+                return res.status(404).json({ message: 'Usuário não encontrado.' });
+            }
+
+            res.render('dashboard', { usuario });
+        });
+    },
+
+    logoutUsuario: (req, res) => {
+        req.session.destroy(err => {
+            if (err) {
+                return res.status(500).json({ error: 'Erro ao realizar logout.' });
+            }
+            res.redirect('/usuarios/login'); 
         });
     },
 };

@@ -1,11 +1,15 @@
 <section class="home">
-    <form action="/usuarios/cadastro/" method="POST">
-        <h2 class="login">Cadastro</h2>
-        <input name="nome" type="text" placeholder="Nome">
-        <input name="email" type="text" placeholder="Email">
-        <input name="senha" type="password" placeholder="Senha">
+    <form action="/usuarios/cadastro" method="POST">
+        <h2>Cadastro</h2>
+        <input name="nome" type="text" placeholder="Nome" required>
+        <input name="email" type="email" placeholder="Email" required>
+        <input name="senha" type="password" placeholder="Senha" required minlength="4">
+        <select name="role" required>
+            <option value="usuario">Usuário</option>
+            <option value="vendedor">Vendedor</option>
+        </select>
         <div class="subtitulo-container">
-            <p class="subtitulo">Já possui uma conta? <a href="login">Login</a></p>
+            <p class="subtitulo">Já possui uma conta? <a href="/login">Login</a></p>
         </div>
         <button type="submit" class="btn btn-primary">Cadastrar</button>
     </form>
