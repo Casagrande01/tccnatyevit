@@ -4,17 +4,20 @@ const usuarioController = {
     createUsuario: (req, res) => {
         const { nome, email, senha, role } = req.body;
 
-        if (!nome || !email || !senha || !role) {
-            return res.status(400).json({ message: 'Todos os campos são obrigatórios.' });
+        // Se você não quer usar o campo 'role', remova a verificação para 'role' e o valor no objeto
+        if (!nome || !email || !senha) {
+            return res.status(400).json({ message: 'Nome, e-mail e senha são obrigatórios.' });
         }
 
+        // Se 'role' for necessário, adicione-o aqui
         const newUsuario = { nome, email, senha, role };
 
         Usuario.create(newUsuario, (err) => {
             if (err) {
+                console.log("Erro ao criar usuário:", err);  // Depuração do erro
                 return res.status(500).json({ error: 'Erro ao criar usuário.' });
             }
-            res.redirect('/dashboard');
+            res.redirect('/dashboard');  // Após criar, redireciona para o dashboard
         });
     },
 
@@ -33,8 +36,8 @@ const usuarioController = {
                 return res.status(401).json({ message: 'Nome de usuário ou senha incorretos.' });
             }
 
-            req.session.usuarioId = usuario.id; 
-            res.redirect('/dashboard'); 
+            req.session.usuarioId = usuario.id;
+            res.redirect('/dashboard');
         });
     },
 
@@ -85,7 +88,7 @@ const usuarioController = {
             nome: req.body.nome,
             email: req.body.email,
             senha: req.body.senha,
-            role: req.body.role,
+            role: req.body.role,  // Se 'role' for opcional, remova essa linha
         };
 
         Usuario.update(usuarioId, updatedUsuario, (err) => {
@@ -122,7 +125,7 @@ const usuarioController = {
         const usuarioId = req.session.usuarioId;
 
         if (!usuarioId) {
-            return res.redirect('/usuarios/login'); 
+            return res.redirect('/usuarios/login');
         }
 
         Usuario.findById(usuarioId, (err, usuario) => {
@@ -139,7 +142,7 @@ const usuarioController = {
             if (err) {
                 return res.status(500).json({ error: 'Erro ao realizar logout.' });
             }
-            res.redirect('/usuarios/login'); 
+            res.redirect('/usuarios/login');
         });
     },
 };

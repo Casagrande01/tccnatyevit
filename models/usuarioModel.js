@@ -2,8 +2,16 @@ const db = require('../config/db');
 
 const usuario = {
     create: (usuario, callback) => {
-        const query = 'INSERT INTO usuarios (nome, email, senha, role) VALUES (?, ?, ?, ?)';
-        db.query(query, [usuario.nome, usuario.email, usuario.senha, usuario.role], (err, results) => {
+        // Verifique se 'role' é fornecido, caso contrário, remova-o da consulta
+        const query = usuario.role 
+            ? 'INSERT INTO usuarios (nome, email, senha, role) VALUES (?, ?, ?, ?)' 
+            : 'INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)';
+
+        const params = usuario.role 
+            ? [usuario.nome, usuario.email, usuario.senha, usuario.role] 
+            : [usuario.nome, usuario.email, usuario.senha];
+
+        db.query(query, params, (err, results) => {
             if (err) {
                 return callback(err);
             }
@@ -60,8 +68,15 @@ const usuario = {
     },
 
     update: (id, usuario, callback) => {
-        const query = 'UPDATE usuarios SET nome = ?, email = ?, senha = ?, role = ? WHERE id = ?';
-        db.query(query, [usuario.nome, usuario.email, usuario.senha, usuario.role, id], (err, results) => {
+        const query = usuario.role 
+            ? 'UPDATE usuarios SET nome = ?, email = ?, senha = ?, role = ? WHERE id = ?' 
+            : 'UPDATE usuarios SET nome = ?, email = ?, senha = ? WHERE id = ?';
+
+        const params = usuario.role 
+            ? [usuario.nome, usuario.email, usuario.senha, usuario.role, id] 
+            : [usuario.nome, usuario.email, usuario.senha, id];
+
+        db.query(query, params, (err, results) => {
             if (err) {
                 return callback(err);
             }
