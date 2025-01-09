@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const expressLayouts = require('express-ejs-layouts');
 const usuarioController = require('./controllers/usuarioController');
-const autenticar = require('./Middleware/autenticacao'); 
+const autenticar = require('./middleware/requireAuth'); 
 
 const app = express();
 const PORT = process.env.PORT || 3000;

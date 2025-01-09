@@ -1,15 +1,37 @@
 const Usuario = require('../models/usuarioModel');
 
 const usuarioController = {
+    loginUsuario: (req, res) => {
+        const { email, senha } = req.body;
+
+        if (!email || !senha) {
+            return res.status(400).json({ message: 'Email e senha são obrigatórios.' });
+        }
+
+        // Chama o modelo para verificar o login
+        Usuario.login({ email, senha }, (err, usuario) => {
+            if (err) {
+                return res.status(500).json({ error: 'Erro ao tentar logar.' });
+            }
+            if (!usuario) {
+                return res.status(401).json({ message: 'Email ou senha incorretos.' });
+            }
+
+            // Configura a sessão do usuário
+            req.session.usuarioId = usuario.id;
+
+            // Redireciona para a página de perfil após login bem-sucedido
+            res.redirect('/usuarios/perfil');
+        });
+    },
+
     createUsuario: (req, res) => {
         const { nome, email, senha, role } = req.body;
 
-        // Se você não quer usar o campo 'role', remova a verificação para 'role' e o valor no objeto
         if (!nome || !email || !senha) {
             return res.status(400).json({ message: 'Nome, e-mail e senha são obrigatórios.' });
         }
 
-        // Se 'role' for necessário, adicione-o aqui
         const newUsuario = { nome, email, senha, role };
 
         Usuario.create(newUsuario, (err) => {
@@ -17,41 +39,40 @@ const usuarioController = {
                 console.log("Erro ao criar usuário:", err);  // Depuração do erro
                 return res.status(500).json({ error: 'Erro ao criar usuário.' });
             }
-            res.redirect('/dashboard');  // Após criar, redireciona para o dashboard
+            res.redirect('/usuarios/perfil');  // Após criar, redireciona para o perfil
         });
     },
 
-    loginUsuario: (req, res) => {
-        const { nome, senha } = req.body;
+    getPerfil: (req, res) => {
+        const usuarioId = req.session.usuarioId;
 
-        if (!nome || !senha) {
-            return res.status(400).json({ message: 'Nome e senha são obrigatórios.' });
+        if (!usuarioId) {
+            return res.redirect('/usuarios/login');
         }
 
-        Usuario.login({ nome, senha }, (err, usuario) => {
-            if (err) {
-                return res.status(500).json({ error: 'Erro ao tentar logar.' });
-            }
-            if (!usuario) {
-                return res.status(401).json({ message: 'Nome de usuário ou senha incorretos.' });
+        Usuario.findById(usuarioId, (err, usuario) => {
+            if (err || !usuario) {
+                return res.status(404).json({ message: 'Usuário não encontrado.' });
             }
 
-            req.session.usuarioId = usuario.id;
-            res.redirect('/dashboard');
+            // Exibe os dados do usuário na página de perfil
+            res.render('perfil', { usuario });
         });
     },
 
-    getUsuarioById: (req, res) => {
-        const usuarioId = req.params.id;
+    getDashboard: (req, res) => {
+        const usuarioId = req.session.usuarioId;
+
+        if (!usuarioId) {
+            return res.redirect('/usuarios/login');
+        }
 
         Usuario.findById(usuarioId, (err, usuario) => {
-            if (err) {
-                return res.status(500).json({ error: err });
+            if (err || !usuario) {
+                return res.status(404).json({ message: 'Usuário não encontrado.' });
             }
-            if (!usuario) {
-                return res.status(404).json({ message: 'Usuário não encontrado' });
-            }
-            res.render('usuarios/show', { usuario });
+
+            res.render('dashboard', { usuario });
         });
     },
 
@@ -88,7 +109,7 @@ const usuarioController = {
             nome: req.body.nome,
             email: req.body.email,
             senha: req.body.senha,
-            role: req.body.role,  // Se 'role' for opcional, remova essa linha
+            role: req.body.role,
         };
 
         Usuario.update(usuarioId, updatedUsuario, (err) => {
@@ -107,33 +128,6 @@ const usuarioController = {
                 return res.status(500).json({ error: err });
             }
             res.redirect('/usuarios');
-        });
-    },
-
-    searchUsuarios: (req, res) => {
-        const search = req.query.search || '';
-
-        Usuario.searchByName(search, (err, usuarios) => {
-            if (err) {
-                return res.status(500).json({ error: err });
-            }
-            res.json({ usuarios });
-        });
-    },
-
-    getDashboard: (req, res) => {
-        const usuarioId = req.session.usuarioId;
-
-        if (!usuarioId) {
-            return res.redirect('/usuarios/login');
-        }
-
-        Usuario.findById(usuarioId, (err, usuario) => {
-            if (err || !usuario) {
-                return res.status(404).json({ message: 'Usuário não encontrado.' });
-            }
-
-            res.render('dashboard', { usuario });
         });
     },
 

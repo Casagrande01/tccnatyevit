@@ -1,11 +1,13 @@
 <section class="home">
     <form action="/usuarios/login" method="POST">
-        <h2>Login</h2>
-        <input name="nome" type="text" placeholder="Nome de usuário" required>
-        <input name="senha" type="password" placeholder="Senha" required>
-        <div class="subtitulo-container">
-            <p class="subtitulo">Não tem conta? <a href="/cadastro">Cadastre-se</a></p>
-        </div>
-        <button type="submit" class="btn btn-primary">Entrar</button>
+      <h2>Login</h2>
+      <input name="email" type="email" placeholder="Email" required />
+      <input name="senha" type="password" placeholder="Senha" required />
+      <div class="subtitulo-container">
+        <p class="subtitulo">
+          Não tem conta? <a href="/cadastro">Cadastre-se</a>
+        </p>
+      </div>
+      <button type="submit" class="btn btn-primary">Entrar</button>
     </form>
 </section>
