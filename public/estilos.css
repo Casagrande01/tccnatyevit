@@ -464,3 +464,65 @@ nav.menu a:hover {
     background-color: #218838;
 }
 
+.produto-destaque {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px;
+}
+
+.produto-card {
+    display: flex;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+}
+
+.produto-imagem img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.produto-detalhes {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.nome-produto {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.produto-descricao {
+    margin: 10px 0;
+}
+
+.produto-preco {
+    font-size: 18px;
+    color: #e74c3c;
+}
+
+.botoes {
+    margin-top: 20px;
+}
+
+.produto-btn {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.produto-btn:hover {
+    background-c
+
+    
+    

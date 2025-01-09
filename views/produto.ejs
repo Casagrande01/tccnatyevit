@@ -7,9 +7,9 @@
         <div class="produto-detalhes">
             <h2 class="nome-produto">Bateria de Armazenamento</h2>
             <p class="produto-descricao">
-                IBateria de Litio Weg para Sistema de Armazenamento de Energia Luna2000-5-e0 5kwh
+                Bateria de Litio Weg para Sistema de Armazenamento de Energia Luna2000-5-e0 5kwh
             </p>
-            <p class="produto-preco"><strong>Preço:</strong>R$ 28.540,84</p>
+            <p class="produto-preco"><strong>Preço:</strong> R$ 28.540,84</p>
             
             <div class="botoes">
                 <button class="produto-btn">Comprar</button>
@@ -19,9 +19,117 @@
     </div>
 </section>
 
+<!-- Aba de Comentários - movida para abaixo do produto -->
+<div class="comentarios">
+    <h3>Comentários</h3>
+
+    <div class="comentarios-lista" id="comentariosLista">
+        <!-- Comentários serão inseridos aqui -->
+    </div>
+
+    <div class="comentario-adicionar">
+        <textarea id="comentarioInput" placeholder="Deixe seu comentário..." rows="4"></textarea>
+        <button onclick="adicionarComentario()">Adicionar Comentário</button>
+    </div>
+</div>
+
 <script>
+    // Função para adicionar produto ao carrinho
     function adicionarCarrinho() {
         alert('Produto adicionado ao carrinho!');
-        // Aqui você pode adicionar lógica para enviar o produto ao servidor
+        // Lógica para adicionar o produto ao carrinho (aqui poderia ser uma requisição ao servidor)
+    }
+
+    // Função para adicionar um novo comentário
+    function adicionarComentario() {
+        const comentarioInput = document.getElementById('comentarioInput');
+        const comentarioTexto = comentarioInput.value.trim();
+
+        if (comentarioTexto === "") {
+            alert("Por favor, escreva um comentário antes de enviar.");
+            return;
+        }
+
+        const comentarioDiv = document.createElement('div');
+        comentarioDiv.classList.add('comentario');
+        
+        // Criação do conteúdo do comentário
+        const textoComentario = document.createElement('p');
+        textoComentario.textContent = comentarioTexto;
+        
+        // Criação do botão de excluir
+        const botaoExcluir = document.createElement('button');
+        botaoExcluir.textContent = "Excluir";
+        botaoExcluir.classList.add('excluir-comentario');
+        botaoExcluir.onclick = function() {
+            comentarioDiv.remove(); // Remove o comentário da lista
+        };
+
+        // Adicionando o comentário e o botão de excluir ao div
+        comentarioDiv.appendChild(textoComentario);
+        comentarioDiv.appendChild(botaoExcluir);
+        
+        // Adiciona o comentário à lista
+        const comentariosLista = document.getElementById('comentariosLista');
+        comentariosLista.appendChild(comentarioDiv);
+
+        // Limpa o campo de texto
+        comentarioInput.value = '';
     }
 </script>
+
+<style>
+    /* Estilos para a seção de comentários */
+    .comentarios {
+        margin-top: 20px;
+        padding: 15px;
+        border-top: 1px solid #ddd;
+    }
+
+    .comentarios h3 {
+        font-size: 1.5em;
+    }
+
+    .comentario-adicionar textarea {
+        width: 100%;
+        padding: 10px;
+        font-size: 1em;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .comentario-adicionar button {
+        background-color: #28a745;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .comentario-adicionar button:hover {
+        background-color: #218838;
+    }
+
+    .comentarios-lista .comentario {
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+    .comentarios-lista .comentario button.excluir-comentario {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        margin-top: 10px;
+        cursor: pointer;
+    }
+
+    .comentarios-lista .comentario button.excluir-comentario:hover {
+        background-color: #c82333;
+    }
+</style>
