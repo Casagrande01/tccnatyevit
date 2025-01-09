@@ -1,21 +1,27 @@
-<section class="home">
-    <div class="produto-container">
-        <div class="produto-card">
-            <div class="produto_img">
-                <img class="produto-img" src="/imagens/placasolar2.jpg" alt="Placa Solar">
-            </div>
+<section class="produto-destaque">
+    <div class="produto-card">
+        <div class="produto-imagem">
+            <img class="produto-img" src="/imagens/bateriadearmazenamento1.jpg" alt="Placa Solar">
+        </div>
 
-            <div class="produto_img">
-                <img class="produto-img" src="/imagens/placasolar2.jpg" alt="Placa Solar">
-            </div>
+        <div class="produto-detalhes">
+            <h2 class="nome-produto">Bateria de Armazenamento</h2>
+            <p class="produto-descricao">
+                IBateria de Litio Weg para Sistema de Armazenamento de Energia Luna2000-5-e0 5kwh
+            </p>
+            <p class="produto-preco"><strong>Preço:</strong>R$ 28.540,84</p>
             
-            <div class="produto_img">
-                <img class="produto-img" src="/imagens/placasolar2.jpg" alt="Placa Solar">
+            <div class="botoes">
+                <button class="produto-btn">Comprar</button>
+                <button class="produto-btn adicionar-carrinho" onclick="adicionarCarrinho()">Adicionar ao Carrinho</button>
             </div>
-
-            <p class="nome_produto">Produto da Nathany</p>
-            <p class="produto-descricao">Descrição breve do produto aqui.</p>
-            <button class="produto-btn">Saiba Mais</button>
         </div>
     </div>
 </section>
+
+<script>
+    function adicionarCarrinho() {
+        alert('Produto adicionado ao carrinho!');
+        // Aqui você pode adicionar lógica para enviar o produto ao servidor
+    }
+</script>
