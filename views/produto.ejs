@@ -133,3 +133,61 @@
         background-color: #c82333;
     }
 </style>
+<!-- Seção do Carrinho -->
+<section class="carrinho mb-12">
+    <h2 class="text-3xl font-semibold text-center mb-8">Carrinho de Compras</h2>
+    <div id="carrinho">
+      <p id="carrinhoVazio">Seu carrinho está vazio.</p>
+    </div>
+    <div class="text-center">
+      <a href="/checkout"><button id="checkoutBtn" class="btn btn-primary py-2 px-4 rounded-md" disabled>Finalizar Compra</button></a>
+    </div>
+  </section>
+  
+  <!-- Botão do Carrinho -->
+  <div class="fixed bottom-5 right-5">
+    <button id="botaoCarrinho" class="btn btn-circle bg-gray-800 text-white">🛒</button>
+  </div>
+  <script>
+  // Array para armazenar os produtos no carrinho
+  let carrinho = [];
+  
+  // Função para adicionar um item ao carrinho
+  function adicionarAoCarrinho(nomeProduto, precoProduto) {
+    const item = {
+      nome: nomeProduto,
+      preco: precoProduto
+    };
+    
+    carrinho.push(item);
+    atualizarCarrinho();
+  }
+  
+  // Função para atualizar a exibição do carrinho
+  function atualizarCarrinho() {
+    const carrinhoDiv = document.getElementById('carrinho');
+    const carrinhoVazio = document.getElementById('carrinhoVazio');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    
+    if (carrinho.length === 0) {
+      carrinhoVazio.style.display = 'block';
+      carrinhoDiv.innerHTML = '';
+      checkoutBtn.disabled = true;
+    } else {
+      carrinhoVazio.style.display = 'none';
+      carrinhoDiv.innerHTML = '';
+      let total = 0;
+      carrinho.forEach(item => {
+        carrinhoDiv.innerHTML += `<p>${item.nome} - R$ ${item.preco.toFixed(2)}</p>`;
+        total += item.preco;
+      });
+      carrinhoDiv.innerHTML += `<p><strong>Total: R$ ${total.toFixed(2)}</strong></p>`;
+      checkoutBtn.disabled = false;
+    }
+  }
+  
+  // Exibição do carrinho ao clicar no ícone do carrinho
+  document.getElementById('botaoCarrinho').addEventListener('click', () => {
+    document.querySelector('.carrinho').style.display = 'block';
+  });
+</script>
