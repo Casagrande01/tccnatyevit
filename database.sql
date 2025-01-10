@@ -13,13 +13,10 @@ CREATE TABLE produtos (
     cod INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     descricao TEXT NOT NULL,
-    peso DECIMAL(10,2) NOT NULL,
-    validade INT NOT NULL,
-    marca INT NOT NULL,
     valor INT NOT NULL,
     foto INT NOT NULL,
-    dimensões INT NOT NULL,
-    material INT NOT NULL
+    categoria INT NOT NULL
+   
     
 );
 CREATE TABLE instalação (
