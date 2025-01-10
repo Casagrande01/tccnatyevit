@@ -38,7 +38,7 @@ const rotaIndex = require('./routes/index');
 
 app.use('/', rotaIndex);
 app.use('/usuarios', rotaUsuario);
-app.use('/produto', rotaProduto);
+app.use('/produtos', rotaProduto);
 app.use('/carrinho', rotaCarrinho);
 
 app.listen(PORT, () => {
