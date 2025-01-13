@@ -12,14 +12,13 @@
             <p class="produto-preco"><strong>Preço:</strong> R$ 28.540,84</p>
             
             <div class="botoes">
-                <button class="produto-btn">Comprar</button>
-                <button class="produto-btn adicionar-carrinho" onclick="adicionarCarrinho()">Adicionar ao Carrinho</button>
+                <button class="produto-btn" onclick="adicionarAoCarrinho('Bateria de Armazenamento', 28540.84)">Adicionar ao Carrinho</button>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Aba de Comentários - movida para abaixo do produto -->
+<!-- Seção de Comentários -->
 <div class="comentarios">
     <h3>Comentários</h3>
 
@@ -33,14 +32,66 @@
     </div>
 </div>
 
+<!-- Seção do Carrinho -->
+<div class="carrinho">
+    <h3>Carrinho de Compras</h3>
+    <div class="carrinho-lista" id="itensCarrinho">
+        <!-- Itens do carrinho aparecerão aqui -->
+    </div>
+    <div class="carrinho-total">
+        <strong>Total:</strong> R$ <span id="totalCarrinho">0,00</span>
+    </div>
+    <button id="finalizarCompra" disabled>Finalizar Compra</button>
+</div>
+
 <script>
-    // Função para adicionar produto ao carrinho
-    function adicionarCarrinho() {
-        alert('Produto adicionado ao carrinho!');
-        // Lógica para adicionar o produto ao carrinho (aqui poderia ser uma requisição ao servidor)
+    let carrinho = [];
+
+    // Função para adicionar produtos ao carrinho
+    function adicionarAoCarrinho(nome, preco) {
+        const produto = { nome, preco };
+        carrinho.push(produto);
+        atualizarCarrinho();
     }
 
-    // Função para adicionar um novo comentário
+    // Função para atualizar o carrinho
+    function atualizarCarrinho() {
+        const listaItensCarrinho = document.getElementById("itensCarrinho");
+        listaItensCarrinho.innerHTML = ""; // Limpa os itens do carrinho
+
+        let total = 0;
+        carrinho.forEach((produto, index) => {
+            const itemDiv = document.createElement("div");
+            itemDiv.classList.add("carrinho-item");
+
+            const nomePreco = document.createElement("p");
+            nomePreco.textContent = `${produto.nome} - R$ ${produto.preco.toFixed(2)}`;
+
+            const botaoRemover = document.createElement("button");
+            botaoRemover.textContent = "Remover";
+            botaoRemover.classList.add("excluir-carrinho");
+            botaoRemover.onclick = () => removerDoCarrinho(index);
+
+            itemDiv.appendChild(nomePreco);
+            itemDiv.appendChild(botaoRemover);
+            listaItensCarrinho.appendChild(itemDiv);
+
+            total += produto.preco;
+        });
+
+        document.getElementById("totalCarrinho").textContent = total.toFixed(2);
+
+        const finalizarCompraButton = document.getElementById("finalizarCompra");
+        finalizarCompraButton.disabled = carrinho.length === 0;
+    }
+
+    // Função para remover um item do carrinho
+    function removerDoCarrinho(index) {
+        carrinho.splice(index, 1);
+        atualizarCarrinho();
+    }
+
+    // Função para adicionar comentário
     function adicionarComentario() {
         const comentarioInput = document.getElementById('comentarioInput');
         const comentarioTexto = comentarioInput.value.trim();
@@ -52,54 +103,50 @@
 
         const comentarioDiv = document.createElement('div');
         comentarioDiv.classList.add('comentario');
-        
-        // Criação do conteúdo do comentário
+
         const textoComentario = document.createElement('p');
         textoComentario.textContent = comentarioTexto;
-        
-        // Criação do botão de excluir
+
         const botaoExcluir = document.createElement('button');
         botaoExcluir.textContent = "Excluir";
         botaoExcluir.classList.add('excluir-comentario');
-        botaoExcluir.onclick = function() {
-            comentarioDiv.remove(); // Remove o comentário da lista
-        };
+        botaoExcluir.onclick = () => comentarioDiv.remove();
 
-        // Adicionando o comentário e o botão de excluir ao div
         comentarioDiv.appendChild(textoComentario);
         comentarioDiv.appendChild(botaoExcluir);
-        
-        // Adiciona o comentário à lista
-        const comentariosLista = document.getElementById('comentariosLista');
-        comentariosLista.appendChild(comentarioDiv);
+        document.getElementById('comentariosLista').appendChild(comentarioDiv);
 
-        // Limpa o campo de texto
         comentarioInput.value = '';
     }
 </script>
 
 <style>
     /* Estilos para a seção de comentários */
-    .comentarios {
+    .comentarios,
+    .carrinho {
         margin-top: 20px;
         padding: 15px;
-        border-top: 1px solid #ddd;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
     }
 
-    .comentarios h3 {
+    .comentarios h3,
+    .carrinho h3 {
         font-size: 1.5em;
+        margin-bottom: 10px;
     }
 
     .comentario-adicionar textarea {
         width: 100%;
         padding: 10px;
-        font-size: 1em;
         margin-bottom: 10px;
         border: 1px solid #ddd;
         border-radius: 5px;
     }
 
-    .comentario-adicionar button {
+    .comentario-adicionar button,
+    .carrinho button {
         background-color: #28a745;
         color: white;
         padding: 10px;
@@ -108,11 +155,13 @@
         cursor: pointer;
     }
 
-    .comentario-adicionar button:hover {
+    .comentario-adicionar button:hover,
+    .carrinho button:hover {
         background-color: #218838;
     }
 
-    .comentarios-lista .comentario {
+    .comentarios-lista .comentario,
+    .carrinho-lista .carrinho-item {
         margin-bottom: 10px;
         padding: 10px;
         border: 1px solid #ddd;
@@ -120,74 +169,22 @@
         background-color: #f9f9f9;
     }
 
-    .comentarios-lista .comentario button.excluir-comentario {
+    .comentarios-lista .comentario button.excluir-comentario,
+    .carrinho-lista .carrinho-item button.excluir-carrinho {
         background-color: #dc3545;
         color: white;
         border: none;
         padding: 5px 10px;
-        margin-top: 10px;
         cursor: pointer;
     }
 
-    .comentarios-lista .comentario button.excluir-comentario:hover {
+    .comentarios-lista .comentario button.excluir-comentario:hover,
+    .carrinho-lista .carrinho-item button.excluir-carrinho:hover {
         background-color: #c82333;
     }
-</style>
-<!-- Seção do Carrinho -->
-<section class="carrinho mb-12">
-    <h2 class="text-3xl font-semibold text-center mb-8">Carrinho de Compras</h2>
-    <div id="carrinho">
-      <p id="carrinhoVazio">Seu carrinho está vazio.</p>
-    </div>
-    <div class="text-center">
-      <a href="/checkout"><button id="checkoutBtn" class="btn btn-primary py-2 px-4 rounded-md" disabled>Finalizar Compra</button></a>
-    </div>
-  </section>
-  
-  <!-- Botão do Carrinho -->
-  <div class="fixed bottom-5 right-5">
-    <button id="botaoCarrinho" class="btn btn-circle bg-gray-800 text-white">🛒</button>
-  </div>
-  <script>
-  // Array para armazenar os produtos no carrinho
-  let carrinho = [];
-  
-  // Função para adicionar um item ao carrinho
-  function adicionarAoCarrinho(nomeProduto, precoProduto) {
-    const item = {
-      nome: nomeProduto,
-      preco: precoProduto
-    };
-    
-    carrinho.push(item);
-    atualizarCarrinho();
-  }
-  
-  // Função para atualizar a exibição do carrinho
-  function atualizarCarrinho() {
-    const carrinhoDiv = document.getElementById('carrinho');
-    const carrinhoVazio = document.getElementById('carrinhoVazio');
-    const checkoutBtn = document.getElementById('checkoutBtn');
-    
-    if (carrinho.length === 0) {
-      carrinhoVazio.style.display = 'block';
-      carrinhoDiv.innerHTML = '';
-      checkoutBtn.disabled = true;
-    } else {
-      carrinhoVazio.style.display = 'none';
-      carrinhoDiv.innerHTML = '';
-      let total = 0;
-      carrinho.forEach(item => {
-        carrinhoDiv.innerHTML += `<p>${item.nome} - R$ ${item.preco.toFixed(2)}</p>`;
-        total += item.preco;
-      });
-      carrinhoDiv.innerHTML += `<p><strong>Total: R$ ${total.toFixed(2)}</strong></p>`;
-      checkoutBtn.disabled = false;
+
+    .carrinho-total {
+        margin-top: 10px;
+        font-size: 1.2em;
     }
-  }
-  
-  // Exibição do carrinho ao clicar no ícone do carrinho
-  document.getElementById('botaoCarrinho').addEventListener('click', () => {
-    document.querySelector('.carrinho').style.display = 'block';
-  });
-</script>
+</style>
