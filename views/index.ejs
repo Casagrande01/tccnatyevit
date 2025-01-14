@@ -140,7 +140,7 @@
           <p class="text-gray-600 mt-2">Inversor Solar 3 kW Solis S6-GR1P3K-M</p>
           <div class="mt-4 flex flex-col space-y-2"> <!-- Aqui muda para flex-col para empilhar os botões -->
             <span class="text-lg font-semibold text-green-600">R$2.099,00</span>
-            <button class="btn btn-primary py-2 px-4 rounded-md" onclick="adicionarAoCarrinho('Inversor Solar', 2099,00)">Adicionar ao Carrinho</button>
+            <button class="btn btn-primary py-2 px-4 rounded-md" onclick="adicionarAoCarrinho('Inversor Solar', 2099.00)">Adicionar ao Carrinho</button>
             <a href="/produto">
               <button class="btn btn-primary py-2 px-4 rounded-md" onclick="adicionarAoCarrinho('Controlador Solar 30A', 399.99)">Saiba mais</button>
             </a>
@@ -249,7 +249,7 @@
           <p class="text-gray-600 mt-2">KIT com 3 Placa Solar Poli 340w Policristalino 72 Células -.</p>
           <div class="mt-4 flex flex-col space-y-2"> <!-- Aqui muda para flex-col para empilhar os botões -->
             <span class="text-lg font-semibold text-green-600">R$3.600,00  </span>
-            <button class="btn btn-primary py-2 px-4 rounded-md" onclick="adicionarAoCarrinho('Painel Solar Fotovoltaico Policristalino 340w 72 Células 3un', 3600,00)">Adicionar ao Carrinho</button>
+            <button class="btn btn-primary py-2 px-4 rounded-md" onclick="adicionarAoCarrinho('Painel Solar Fotovoltaico Policristalino 340w 72 Células 3un', 3600.00)">Adicionar ao Carrinho</button>
             <a href="/produto">
               <button class="btn btn-primary py-2 px-4 rounded-md" onclick="adicionarAoCarrinho('Controlador Solar 30A', 399.99)">Saiba mais</button>
             </a>
@@ -267,7 +267,7 @@
           <p class="text-gray-600 mt-2">Reservatório térmico 200 litros. Possui comprimento de 165 cm, diâmetro 55 cm. Coletor solar 1.6m² com largura 200 cm, altura 80 cm, profundidade 8 cm. Reservatório água fria (tanquinho quebra-pressão) 25 litros com comprimento 47 cm, diâmetro 27,5 cm. .</p>
           <div class="mt-4 flex flex-col space-y-2"> <!-- Aqui muda para flex-col para empilhar os botões -->
             <span class="text-lg font-semibold text-green-600">R$1.990,00</span>
-            <button class="btn btn-primary py-2 px-4 rounded-md" onclick="adicionarAoCarrinho('Aquecedor Solar Eco Coletor Solar 200 Litros Solarmax', 1990,00)">Adicionar ao Carrinho</button>
+            <button class="btn btn-primary py-2 px-4 rounded-md" onclick="adicionarAoCarrinho('Aquecedor Solar Eco Coletor Solar 200 Litros Solarmax', 1990.00)">Adicionar ao Carrinho</button>
             <a href="/produto">
               <button class="btn btn-primary py-2 px-4 rounded-md" onclick="adicionarAoCarrinho('Controlador Solar 30A', 399.99)">Saiba mais</button>
             </a>
@@ -309,6 +309,7 @@
   setInterval(goToNextSlide, 5000); // Troca de slide a cada 5 segundos
 </script>
 
+<div class="Carrinho"></div>
 <section class="carrinho mb-12">
   <h2 class="text-3xl font-semibold text-center mb-8">Carrinho de Compras</h2>
   <div id="carrinho" class="bg-white p-4 rounded-lg shadow-md">
@@ -341,13 +342,14 @@ let carrinho = [];
     carrinho.forEach((produto, index) => {
       const item = document.createElement("li");
       item.classList.add("flex", "justify-between", "items-center", "py-2");
-      item.innerHTML = `${produto.nome} - R$ ${produto.preco.toFixed(2)} <button class="btn btn-danger text-white ml-2" onclick="removerDoCarrinho(${index})">Remover</button>`;
+      item.innerHTML = `${produto.nome} - R$ ${produto.preco.toLocaleString('pt-BR')} <button class="btn
+       btn-error text-white ml-2" onclick="removerDoCarrinho(${index})">Remover</button>`;
       listaItensCarrinho.appendChild(item);
       total += produto.preco;
     });
 
     const totalCarrinho = document.getElementById("totalCarrinho");
-    totalCarrinho.innerHTML = `Total: R$ ${total.toFixed(2)}`;
+    totalCarrinho.innerHTML = `Total: R$ ${total.toLocaleString('pt-BR')}`;
 
     const finalizarCompraButton = document.getElementById("finalizarCompra");
     if (carrinho.length > 0) {
