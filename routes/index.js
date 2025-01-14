@@ -23,8 +23,9 @@ router.get('/contato', function(req, res, next) {
 });
 
 router.get('/', function(req, res, next) {
-  res.render('index');
+  res.render('index', { usuarioId: req.session.usuarioId});
 });
+
 
 router.get('/teladecadastro', function(req, res, next) {
   res.render('teladecadastro');

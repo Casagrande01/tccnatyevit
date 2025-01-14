@@ -3,34 +3,15 @@ const Produto = require('../models/produtoModel');
 const produtoController = {
 
     createProduto: (req, res) => {
-        const { nome, descricao, valor, foto, categoria } = req.body;
+        const { nome, descricao, valor, categoria } = req.body;
+        const foto = req.file ? req.file.filename : null; // Obtém o nome da foto carregada
+        const newProduto = { nome, descricao, valor, foto, categoria }; // Adiciona foto ao produto
 
-
-        const newProduto = { nome, descricao, valor, foto, categoria };
-console.log(newProduto);
         Produto.create(newProduto, (err) => {
             if (err) {
-                return res.status(500).json({ error: 'Erro ao criar produto.' });
+                return res.status(500).json({ error: 'Erro ao criar produto.' + err });
             }
-            res.redirect('/');  // Após criar, redireciona para o perfil
-        });
-    },
-
-    
-
-    getDashboard: (req, res) => {
-        const produtoId = req.session.produtoId;
-
-        if (!produtoId) {
-            return res.redirect('/produtos/login');
-        }
-
-        Produto.findById(produtoId, (err, produto) => {
-            if (err || !produto) {
-                return res.status(404).json({ message: 'Usuário não encontrado.' });
-            }
-
-            res.render('dashboard', { produto });
+            res.redirect('/'); // Redireciona para a página inicial após o cadastro
         });
     },
 
@@ -61,23 +42,6 @@ console.log(newProduto);
         });
     },
 
-    updateProduto: (req, res) => {
-        const produtoId = req.params.id;
-        const updatedProduto = {
-            nome: req.body.nome,
-            email: req.body.email,
-            senha: req.body.senha,
-            role: req.body.role,
-        };
-
-        Produto.update(produtoId, updatedProduto, (err) => {
-            if (err) {
-                return res.status(500).json({ error: err });
-            }
-            res.redirect('/produtos');
-        });
-    },
-
     deleteProduto: (req, res) => {
         const produtoId = req.params.id;
 
@@ -89,14 +53,6 @@ console.log(newProduto);
         });
     },
 
-    logoutProduto: (req, res) => {
-        req.session.destroy(err => {
-            if (err) {
-                return res.status(500).json({ error: 'Erro ao realizar logout.' });
-            }
-            res.redirect('/produtos/login');
-        });
-    },
 };
 
 module.exports = produtoController;

@@ -9,5 +9,8 @@
         </p>
       </div>
       <button type="submit" class="btn btn-primary">Entrar</button>
+      <% if (typeof errorMessage !== 'undefined') { %>
+        <div class="error-message"><%= errorMessage %></div>
+      <% } %>
     </form>
 </section>

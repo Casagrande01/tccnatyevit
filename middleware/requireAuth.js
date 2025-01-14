@@ -1,12 +1,10 @@
 const requireAuth = (req, res, next) => {
-    if (req.session && req.session.userId) {
-      return next();
+    console.log(req.session.usuarioId);  // Corrigido para usar 'usuarioId'
+    if (req.session && req.session.usuarioId) {
+        return next();
     }
-
-    res.redirect('/');
-
-    res.status(401).json({ message: 'Usuário não autenticado' })
+    res.redirect('/login');  // Corrigido para o caminho correto
     return;
-  };
-  
+};
+
 module.exports = requireAuth;

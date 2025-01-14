@@ -1,16 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const usuarioController = require('../controllers/usuarioController');
-
-router.get('/login', (req, res) => {
-    res.render('login');  // Aqui você renderiza a página de login
-});
+const requireAuth = require('../middleware/requireAuth')
 
 router.post('/login', usuarioController.loginUsuario);  // O login é feito aqui
 
-router.get('/perfil', usuarioController.getPerfil);
-router.get('/dashboard', usuarioController.getDashboard);
-
+router.get('/perfil', requireAuth, usuarioController.getPerfil);
 // Outras rotas
 router.get('/', usuarioController.getAllUsuarios);
 router.get('/create', usuarioController.renderCreateForm);

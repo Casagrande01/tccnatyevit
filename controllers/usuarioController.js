@@ -5,23 +5,44 @@ const usuarioController = {
         const { email, senha } = req.body;
 
         if (!email || !senha) {
-            return res.status(400).json({ message: 'Email e senha são obrigatórios.' });
+            return res.render('login', { errorMessage: 'Email e senha são obrigatórios' });
         }
 
-        // Chama o modelo para verificar o login
         Usuario.login({ email, senha }, (err, usuario) => {
             if (err) {
-                return res.status(500).json({ error: 'Erro ao tentar logar.' });
+                return res.render('login', { errorMessage: 'Erro ao tentar logar: ' + err });
             }
             if (!usuario) {
-                return res.status(401).json({ message: 'Email ou senha incorretos.' });
+                return res.render('login', { errorMessage: 'Usuário ou senha incorretos' });
             }
 
-            // Configura a sessão do usuário
-            req.session.usuarioId = usuario.id;
+            console.log(usuario);
+
+            // Configura a sessão do usuário, agora usando 'cod' no lugar de 'id'
+            req.session.usuarioId = usuario.cod;  // Corrigido para 'cod'
 
             // Redireciona para a página de perfil após login bem-sucedido
             res.redirect('/usuarios/perfil');
+            return;
+        });
+    },
+
+    getPerfil: (req, res) => {
+        const usuarioId = req.session.usuarioId;  // Usando 'usuarioId' armazenado na sessão
+
+        // Usando getAll com filtro para buscar pelo 'cod'
+        Usuario.getAll((err, usuarios) => {
+            if (err) {
+                return res.status(500).json({ message: 'Erro ao buscar usuário. ' + err });
+            }
+
+            const usuario = usuarios.find(u => u.cod === usuarioId);  // Filtrando pelo 'cod'
+            if (!usuario) {
+                return res.status(404).json({ message: 'Usuário não encontrado.' });
+            }
+
+            // Exibe os dados do usuário na página de perfil
+            res.render('perfil', { usuario });
         });
     },
 
@@ -36,43 +57,10 @@ const usuarioController = {
 
         Usuario.create(newUsuario, (err) => {
             if (err) {
-                console.log("Erro ao criar usuário:", err);  // Depuração do erro
+                console.log("Erro ao criar usuário:", err);
                 return res.status(500).json({ error: 'Erro ao criar usuário.' });
             }
-            res.redirect('/usuarios/perfil');  // Após criar, redireciona para o perfil
-        });
-    },
-
-    getPerfil: (req, res) => {
-        const usuarioId = req.session.usuarioId;
-
-        if (!usuarioId) {
-            return res.redirect('/usuarios/login');
-        }
-
-        Usuario.findById(usuarioId, (err, usuario) => {
-            if (err || !usuario) {
-                return res.status(404).json({ message: 'Usuário não encontrado.' });
-            }
-
-            // Exibe os dados do usuário na página de perfil
-            res.render('perfil', { usuario });
-        });
-    },
-
-    getDashboard: (req, res) => {
-        const usuarioId = req.session.usuarioId;
-
-        if (!usuarioId) {
-            return res.redirect('/usuarios/login');
-        }
-
-        Usuario.findById(usuarioId, (err, usuario) => {
-            if (err || !usuario) {
-                return res.status(404).json({ message: 'Usuário não encontrado.' });
-            }
-
-            res.render('dashboard', { usuario });
+            res.redirect('/usuarios/perfil');
         });
     },
 
@@ -92,10 +80,13 @@ const usuarioController = {
     renderEditForm: (req, res) => {
         const usuarioId = req.params.id;
 
-        Usuario.findById(usuarioId, (err, usuario) => {
+        // Usando getAll com filtro para buscar pelo 'cod'
+        Usuario.getAll((err, usuarios) => {
             if (err) {
                 return res.status(500).json({ error: err });
             }
+
+            const usuario = usuarios.find(u => u.cod === usuarioId);  // Filtrando pelo 'cod'
             if (!usuario) {
                 return res.status(404).json({ message: 'Usuário não encontrado' });
             }

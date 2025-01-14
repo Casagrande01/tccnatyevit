@@ -4,18 +4,16 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const expressLayouts = require('express-ejs-layouts');
-const usuarioController = require('./controllers/usuarioController');
-const autenticar = require('./middleware/requireAuth'); 
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Configuração de sessão
 app.use(session({
-    secret: 'bota aqui a senha do sql não esquece de mudar', 
+    secret: 'sdsadsd', 
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false } 
+    cookie: { maxAge: 3600000 }, 
 }));
 
 app.use(expressLayouts);
@@ -26,9 +24,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
-
-app.use('/dashboard', autenticar);
-app.get('/dashboard', usuarioController.getDashboard);
 
 // Outras rotas
 const rotaUsuario = require('./routes/usuario');
