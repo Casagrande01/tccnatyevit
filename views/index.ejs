@@ -22,7 +22,7 @@
       <div id="slide4" class="carousel-item relative w-full h-64 md:h-96 hidden">
         <img src="/imagens/carrossel4.jpg" class="w-full object-cover" />
       </div>
-
+    </div>
   </section>
 
   <!-- Seção de Produtos -->
@@ -31,359 +31,106 @@
     <% if (usuarioId == 1) { %>
     <a href="/teladecadastro"><button class="btn btn-primary py-2 px-4 rounded-md">Cadastrar novo produto</button></a>
     <% } %>
-    <!-- Container de Produtos -->
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 
-      <!-- Produto 1 -->
-      <div class="box-item card bg-white shadow-xl rounded-lg overflow-hidden">
-        <figure>
-          <img src="/imagens/bateriadearmazenamento1.jpg" class="w-full h-48 object-cover" alt="Controlador Solar 30A">
-        </figure>
-        <div class="card-body p-4">
-          <h3 class="text-xl font-semibold">Bateria de Armazenamento</h3>
-          <p class="text-gray-600 mt-2">IBateria de Litio Weg para Sistema de Armazenamento de Energia Luna2000-5-e0
-            5kwh</p>
-          <div class="mt-4 flex flex-col space-y-2"> <!-- Aqui muda para flex-col para empilhar os botões -->
-            <span class="text-lg font-semibold text-green-600">R$ 28.540,84</span>
-            <button class="btn btn-primary py-2 px-4 rounded-md"
-              onclick="adicionarAoCarrinho('Bateria de Armazenamento', 28540,84)">Adicionar ao Carrinho</button>
-            <a href="/produto">
-              <button class="btn btn-primary py-2 px-4 rounded-md"
-                onclick="adicionarAoCarrinho('Controlador Solar 30A', 399.99)">Saiba mais</button>
-            </a>
+      <% if (produtos && produtos.length > 0) { %>
+        <% produtos.forEach(function(produto) { %>
+          <div class="box-item card bg-white shadow-xl rounded-lg overflow-hidden">
+            <figure>
+              <img src="./uploads/<%= produto.foto %>" class="w-full h-48 object-cover" alt="<%= produto.nome %>">
+            </figure>
+            <div class="card-body p-4">
+              <h3 class="text-xl font-semibold"><%= produto.nome %></h3>
+              <p class="text-gray-600 mt-2"><%= produto.descricao %></p>
+              <div class="mt-4 flex flex-col space-y-2">
+                  <span class="text-lg font-semibold text-green-600">R$<%= produto.valor.toFixed(2) %></span>
+                  <button class="btn btn-primary py-2 px-4 rounded-md"
+                    onclick="adicionarAoCarrinho('<%= produto.nome %>', <%= produto.valor %>)">Adicionar ao Carrinho</button>
+                  <a href="/produto/<%= produto.id %>">
+                    <button class="btn btn-primary py-2 px-4 rounded-md">Saiba mais</button>
+                  </a>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-
-
-      <!-- Produto 2 -->
-      <div class="box-item card bg-white shadow-xl rounded-lg overflow-hidden">
-        <figure>
-          <img src="/imagens/estruturafixaptelha.jpg" class="w-full h-48 object-cover" alt="Controlador Solar 30A">
-        </figure>
-        <div class="card-body p-4">
-          <h3 class="text-xl font-semibold">Estrutura de fixação</h3>
-          <p class="text-gray-600 mt-2">Estrutura de fixação para telha metálica 30Mm Intelbras</p>
-          <div class="mt-4 flex flex-col space-y-2"> <!-- Aqui muda para flex-col para empilhar os botões -->
-            <span class="text-lg font-semibold text-green-600">R$ 126,63</span>
-            <button class="btn btn-primary py-2 px-4 rounded-md"
-              onclick="adicionarAoCarrinho('Estrutura de fixação', 126,63)">Adicionar ao Carrinho</button>
-            <a href="/produto">
-              <button class="btn btn-primary py-2 px-4 rounded-md"
-                onclick="adicionarAoCarrinho('Controlador Solar 30A', 399.99)">Saiba mais</button>
-            </a>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- Produto 3 -->
-      <div class="box-item card bg-white shadow-xl rounded-lg overflow-hidden">
-        <figure>
-          <img src="/imagens/placasolar1.jpg" class="w-full h-48 object-cover" alt="Controlador Solar 30A">
-        </figure>
-        <div class="card-body p-4">
-          <h3 class="text-xl font-semibold">Placa Solar 300W</h3>
-          <p class="text-gray-600 mt-2">Com 300W de potência, esta placa é ideal para grandes residências e até mesmo
-            pequenos empreendimentos comerciais.</p>
-          <div class="mt-4 flex flex-col space-y-2"> <!-- Aqui muda para flex-col para empilhar os botões -->
-            <span class="text-lg font-semibold text-green-600">R$1.099,99 </span>
-            <button class="btn btn-primary py-2 px-4 rounded-md"
-              onclick="adicionarAoCarrinho('Placa Solar 300W', 1099.99)">Adicionar ao Carrinho</button>
-            <a href="/produto">
-              <button class="btn btn-primary py-2 px-4 rounded-md"
-                onclick="adicionarAoCarrinho('Controlador Solar 30A', 399.99)">Saiba mais</button>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Produto 4 -->
-      <div class="box-item card bg-white shadow-xl rounded-lg overflow-hidden">
-        <figure>
-          <img src="/imagens/inversor1.jpeg" class="w-full h-48 object-cover" alt="Controlador Solar 30A">
-        </figure>
-        <div class="card-body p-4">
-          <h3 class="text-xl font-semibold">Inversor Solar 1000W</h3>
-          <p class="text-gray-600 mt-2">O inversor solar de 1000W é perfeito para sistemas solares maiores. Garantia de
-            qualidade e eficiência no consumo de energia..</p>
-          <div class="mt-4 flex flex-col space-y-2"> <!-- Aqui muda para flex-col para empilhar os botões -->
-            <span class="text-lg font-semibold text-green-600">R$1.499,99</span>
-            <button class="btn btn-primary py-2 px-4 rounded-md"
-              onclick="adicionarAoCarrinho('Inversor Solar 1000W', 1499.99)">Adicionar ao Carrinho</button>
-            <a href="/produto">
-              <button class="btn btn-primary py-2 px-4 rounded-md"
-                onclick="adicionarAoCarrinho('Controlador Solar 30A', 399.99)">Saiba mais</button>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Produto 5 -->
-      <div class="box-item card bg-white shadow-xl rounded-lg overflow-hidden">
-        <figure>
-          <img src="/imagens/inversor2.jpg" class="w-full h-48 object-cover" alt="Controlador Solar 30A">
-        </figure>
-        <div class="card-body p-4">
-          <h3 class="text-xl font-semibold">Inversor Solar</h3>
-          <p class="text-gray-600 mt-2">Inversor Solar 3 kW Solis S6-GR1P3K-M</p>
-          <div class="mt-4 flex flex-col space-y-2"> <!-- Aqui muda para flex-col para empilhar os botões -->
-            <span class="text-lg font-semibold text-green-600">R$2.099,00</span>
-            <button class="btn btn-primary py-2 px-4 rounded-md"
-              onclick="adicionarAoCarrinho('Inversor Solar', 2099.00)">Adicionar ao Carrinho</button>
-            <a href="/produto">
-              <button class="btn btn-primary py-2 px-4 rounded-md"
-                onclick="adicionarAoCarrinho('Controlador Solar 30A', 399.99)">Saiba mais</button>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Produto 6 -->
-      <div class="box-item card bg-white shadow-xl rounded-lg overflow-hidden">
-        <figure>
-          <img src="/imagens/bateriadearmazenamento1.jpg" class="w-full h-48 object-cover" alt="Controlador Solar 30A">
-        </figure>
-        <div class="card-body p-4">
-          <h3 class="text-xl font-semibold">Bateria Solar 12V</h3>
-          <p class="text-gray-600 mt-2">Armazene energia solar para usar à noite com esta bateria de alta qualidade,
-            garantindo um fornecimento contínuo de energia.</p>
-          <div class="mt-4 flex flex-col space-y-2"> <!-- Aqui muda para flex-col para empilhar os botões -->
-            <span class="text-lg font-semibold text-green-600">R$799,99</span>
-            <button class="btn btn-primary py-2 px-4 rounded-md"
-              onclick="adicionarAoCarrinho('Bateria Solar 12V', 799.99)">Adicionar ao Carrinho</button>
-            <a href="/produto">
-              <button class="btn btn-primary py-2 px-4 rounded-md"
-                onclick="adicionarAoCarrinho('Controlador Solar 30A', 399.99)">Saiba mais</button>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Produto 7 -->
-      <div class="box-item card bg-white shadow-xl rounded-lg overflow-hidden">
-        <figure>
-          <img src="/imagens/bateriadearmazenamento1.jpg" class="w-full h-48 object-cover" alt="Controlador Solar 30A">
-        </figure>
-        <div class="card-body p-4">
-          <h3 class="text-xl font-semibold">Kit Solar Completo</h3>
-          <p class="text-gray-600 mt-2">Este kit inclui todos os componentes necessários para instalar um sistema solar
-            em sua casa ou comércio. Totalmente completo.</p>
-          <div class="mt-4 flex flex-col space-y-2"> <!-- Aqui muda para flex-col para empilhar os botões -->
-            <span class="text-lg font-semibold text-green-600">R$399,90 </span>
-            <button class="btn btn-primary py-2 px-4 rounded-md"
-              onclick="adicionarAoCarrinho('Kit Solar Completo', 399.90)">Adicionar ao Carrinho</button>
-            <a href="/produto">
-              <button class="btn btn-primary py-2 px-4 rounded-md"
-                onclick="adicionarAoCarrinho('Controlador Solar 30A', 399.99)">Saiba mais</button>
-            </a>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- Produto 8 (novo produto) -->
-      <div class="box-item card bg-white shadow-xl rounded-lg overflow-hidden">
-        <figure>
-          <img src="/imagens/controlador.jpg" class="w-full h-48 object-cover" alt="Controlador Solar 30A">
-        </figure>
-        <div class="card-body p-4">
-          <h3 class="text-xl font-semibold">Controlador Solar 30A</h3>
-          <p class="text-gray-600 mt-2">EO Controlador de Carga MPPT Xtra da marca Epever trabalha em tensão de operação
-            em 12/24V. Possui corrente de carga de 30A, além de display LCD programável. Garantia de 2 anos contra
-            defeito de fabricação.</p>
-          <div class="mt-4 flex flex-col space-y-2"> <!-- Aqui muda para flex-col para empilhar os botões -->
-            <span class="text-lg font-semibold text-green-600">R$3.499,90 </span>
-            <button class="btn btn-primary py-2 px-4 rounded-md"
-              onclick="adicionarAoCarrinho('Controlador Solar 30A', 3499.90)">Adicionar ao Carrinho</button>
-            <a href="/produto">
-              <button class="btn btn-primary py-2 px-4 rounded-md"
-                onclick="adicionarAoCarrinho('Controlador Solar 30A', 399.99)">Saiba mais</button>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Produto 9 (novo produto) -->
-      <div class="box-item card bg-white shadow-xl rounded-lg overflow-hidden">
-        <figure>
-          <img src="/imagens/geradordeenergia.jpg" class="w-full h-48 object-cover" alt="Controlador Solar 30A">
-        </figure>
-        <div class="card-body p-4">
-          <h3 class="text-xl font-semibold">Gerador de energia portátil </h3>
-          <p class="text-gray-600 mt-2">Gerador de energia portátil turbomax original.</p>
-          <div class="mt-4 flex flex-col space-y-2"> <!-- Aqui muda para flex-col para empilhar os botões -->
-            <span class="text-lg font-semibold text-green-600">R$689,90 </span>
-            <button class="btn btn-primary py-2 px-4 rounded-md"
-              onclick="adicionarAoCarrinho('Gerador de energia portátil', 689.90)">Adicionar ao Carrinho</button>
-            <a href="/produto">
-              <button class="btn btn-primary py-2 px-4 rounded-md"
-                onclick="adicionarAoCarrinho('Controlador Solar 30A', 399.99)">Saiba mais</button>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Produto 10 (novo produto) -->
-      <div class="box-item card bg-white shadow-xl rounded-lg overflow-hidden">
-        <figure>
-          <img src="/imagens/kitenergiasolar.jpg" class="w-full h-48 object-cover" alt="Controlador Solar 30A">
-        </figure>
-        <div class="card-body p-4">
-          <h3 class="text-xl font-semibold">Kit Energia Solar OFF Grid até 4800 Wh/Dia</h3>
-          <p class="text-gray-600 mt-2">Esse controlador solar de 30A é ideal para gerenciar a carga da bateria,
-            garantindo a eficiência do sistema solar.</p>
-          <div class="mt-4 flex flex-col space-y-2"> <!-- Aqui muda para flex-col para empilhar os botões -->
-            <span class="text-lg font-semibold text-green-600">R$13.878,70 </span>
-            <button class="btn btn-primary py-2 px-4 rounded-md"
-              onclick="adicionarAoCarrinho('Kit Energia Solar OFF Grid até 4800 Wh/Dia', 13878.70)">Adicionar ao
-              Carrinho</button>
-            <a href="/produto">
-              <button class="btn btn-primary py-2 px-4 rounded-md"
-                onclick="adicionarAoCarrinho('Controlador Solar 30A', 399.99)">Saiba mais</button>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Produto 11 (novo produto) -->
-      <div class="box-item card bg-white shadow-xl rounded-lg overflow-hidden">
-        <figure>
-          <img src="/imagens/painelsolar.jpg" class="w-full h-48 object-cover" alt="Controlador Solar 30A">
-        </figure>
-        <div class="card-body p-4">
-          <h3 class="text-xl font-semibold">Painel Solar Fotovoltaico Policristalino 340w 72 Células 3un </h3>
-          <p class="text-gray-600 mt-2">KIT com 3 Placa Solar Poli 340w Policristalino 72 Células -.</p>
-          <div class="mt-4 flex flex-col space-y-2"> <!-- Aqui muda para flex-col para empilhar os botões -->
-            <span class="text-lg font-semibold text-green-600">R$3.600,00 </span>
-            <button class="btn btn-primary py-2 px-4 rounded-md"
-              onclick="adicionarAoCarrinho('Painel Solar Fotovoltaico Policristalino 340w 72 Células 3un', 3600.00)">Adicionar
-              ao Carrinho</button>
-            <a href="/produto">
-              <button class="btn btn-primary py-2 px-4 rounded-md"
-                onclick="adicionarAoCarrinho('Controlador Solar 30A', 399.99)">Saiba mais</button>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Produto 12 (novo produto) -->
-      <div class="box-item card bg-white shadow-xl rounded-lg overflow-hidden">
-        <figure>
-          <img src="/imagens/aquecedor.jpg" class="w-full h-48 object-cover" alt="Controlador Solar 30A">
-        </figure>
-        <div class="card-body p-4">
-          <h3 class="text-xl font-semibold">Aquecedor Solar Eco Coletor Solar 200 Litros Solarmax </h3>
-          <p class="text-gray-600 mt-2">Reservatório térmico 200 litros. Possui comprimento de 165 cm, diâmetro 55 cm.
-            Coletor solar 1.6m² com largura 200 cm, altura 80 cm, profundidade 8 cm. Reservatório água fria (tanquinho
-            quebra-pressão) 25 litros com comprimento 47 cm, diâmetro 27,5 cm. .</p>
-          <div class="mt-4 flex flex-col space-y-2"> <!-- Aqui muda para flex-col para empilhar os botões -->
-            <span class="text-lg font-semibold text-green-600">R$1.990,00</span>
-            <button class="btn btn-primary py-2 px-4 rounded-md"
-              onclick="adicionarAoCarrinho('Aquecedor Solar Eco Coletor Solar 200 Litros Solarmax', 1990.00)">Adicionar
-              ao Carrinho</button>
-            <a href="/produto">
-              <button class="btn btn-primary py-2 px-4 rounded-md"
-                onclick="adicionarAoCarrinho('Controlador Solar 30A', 399.99)">Saiba mais</button>
-            </a>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- Produto 13 (novo produto)
-       <div class="box-item card bg-white shadow-xl rounded-lg overflow-hidden">
-        <figure>
-          <img src="/imagens/borboleta.jpg" class="w-full h-48 object-cover" alt="Controlador Solar 30A">
-        </figure>
-        <div class="card-body p-4">
-          <h3 class="text-xl font-semibold">teste</h3>
-          <p class="text-gray-600 mt-2">teste</p>
-          <div class="mt-4 flex justify-between items-center">
-            <span class="text-lg font-semibold text-green-600">teste</span>
-            <a href="/produto"><button class="btn btn-primary py-2 px-4 rounded-md" onclick="adicionarAoCarrinho('Controlador Solar 30A', 399.99)">Saiba mais</button></a>
-          </div>
-        </div>
-      </div>
-
+        <% }); %>
+      <% } else { %>
+        <p>Não há produtos disponíveis.</p>
+      <% } %>
     </div>
-  </section>  -->
+  </section>
+
+  <!-- Seção de Carrinho -->
+  <section class="carrinho mb-12">
+    <h2 class="text-3xl font-semibold text-center mb-8">Carrinho de Compras</h2>
+    <div id="carrinho" class="bg-white p-4 rounded-lg shadow-md">
+      <h3 class="text-xl font-semibold">Itens no Carrinho:</h3>
+      <ul id="itensCarrinho" class="mt-4">
+        <!-- Itens do carrinho aparecerão aqui -->
+      </ul>
+      <div id="totalCarrinho" class="mt-4 text-lg font-semibold">
+        Total: R$ 0,00
+      </div>
+      <button id="finalizarCompra" class="btn btn-primary py-2 px-4 mt-4 rounded-md" disabled>Finalizar Compra</button>
+    </div>
+  </section>
+
+  <!-- Script para Carrossel -->
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 4;
+
+    function goToNextSlide() {
+      const currentSlideElement = document.querySelector(`#slide${currentSlide}`);
+      currentSlideElement.classList.add("hidden");
+
+      currentSlide = currentSlide === totalSlides ? 1 : currentSlide + 1;
+
+      const nextSlideElement = document.querySelector(`#slide${currentSlide}`);
+      nextSlideElement.classList.remove("hidden");
+    }
+
+    setInterval(goToNextSlide, 5000); 
+  </script>
+
+  <!-- Script para Carrinho -->
+  <script>
+    let carrinho = [];
+
+    function adicionarAoCarrinho(nome, preco) {
+      const produto = { nome, preco };
+      carrinho.push(produto);
+      atualizarCarrinho();
+    }
+
+    function atualizarCarrinho() {
+      const listaItensCarrinho = document.getElementById("itensCarrinho");
+      listaItensCarrinho.innerHTML = ""; 
+
+      let total = 0;
+      carrinho.forEach((produto, index) => {
+        const item = document.createElement("li");
+        item.classList.add("flex", "justify-between", "items-center", "py-2");
+        item.innerHTML = `${produto.nome} - R$ ${produto.preco.toLocaleString('pt-BR')} 
+                          <button class="btn btn-error text-white ml-2" onclick="removerDoCarrinho(${index})">Remover</button>`;
+        listaItensCarrinho.appendChild(item);
+        total += produto.preco;
+      });
+
+      const totalCarrinho = document.getElementById("totalCarrinho");
+      totalCarrinho.innerHTML = `Total: R$ ${total.toLocaleString('pt-BR')}`;
+
+      const finalizarCompraButton = document.getElementById("finalizarCompra");
+      if (carrinho.length > 0) {
+        finalizarCompraButton.disabled = false;
+      } else {
+        finalizarCompraButton.disabled = true;
+      }
+    }
+
+    function removerDoCarrinho(index) {
+      carrinho.splice(index, 1);
+      atualizarCarrinho();
+    }
+  </script>
 
 </main>
-
-<script>
-  // Função para transição automática do carrossel
-  let currentSlide = 1;
-  const totalSlides = 4; // número total de slides
-
-  function goToNextSlide() {
-    // Alterar apenas o slide visível no carrossel sem usar scrollIntoView
-    const currentSlideElement = document.querySelector(`#slide${currentSlide}`);
-    currentSlideElement.classList.add("hidden"); // Esconde o slide atual
-
-    // Incrementa o slide ou volta para o primeiro slide
-    currentSlide = currentSlide === totalSlides ? 1 : currentSlide + 1;
-
-    const nextSlideElement = document.querySelector(`#slide${currentSlide}`);
-    nextSlideElement.classList.remove("hidden"); // Exibe o próximo slide
-  }
-
-  setInterval(goToNextSlide, 5000); 
-</script>
-
-<div class="Carrinho"></div>
-<section class="carrinho mb-12">
-  <h2 class="text-3xl font-semibold text-center mb-8">Carrinho de Compras</h2>
-  <div id="carrinho" class="bg-white p-4 rounded-lg shadow-md">
-    <h3 class="text-xl font-semibold">Itens no Carrinho:</h3>
-    <ul id="itensCarrinho" class="mt-4">
-      <!-- Itens do carrinho aparecerão aqui -->
-    </ul>
-    <div id="totalCarrinho" class="mt-4 text-lg font-semibold">
-      Total: R$ 0,00
-    </div>
-    <button id="finalizarCompra" class="btn btn-primary py-2 px-4 mt-4 rounded-md" disabled>Finalizar Compra</button>
-  </div>
-</section>
-<script>
-  let carrinho = [];
-
-  // Função para adicionar produtos ao carrinho
-  function adicionarAoCarrinho(nome, preco) {
-    const produto = { nome, preco };
-    carrinho.push(produto);
-    atualizarCarrinho();
-  }
-
-  // Função para atualizar a visualização do carrinho
-  function atualizarCarrinho() {
-    const listaItensCarrinho = document.getElementById("itensCarrinho");
-    listaItensCarrinho.innerHTML = ""; // Limpa os itens do carrinho
-
-    let total = 0;
-    carrinho.forEach((produto, index) => {
-      const item = document.createElement("li");
-      item.classList.add("flex", "justify-between", "items-center", "py-2");
-      item.innerHTML = `${produto.nome} - R$ ${produto.preco.toLocaleString('pt-BR')} <button class="btn
-       btn-error text-white ml-2" onclick="removerDoCarrinho(${index})">Remover</button>`;
-      listaItensCarrinho.appendChild(item);
-      total += produto.preco;
-    });
-
-    const totalCarrinho = document.getElementById("totalCarrinho");
-    totalCarrinho.innerHTML = `Total: R$ ${total.toLocaleString('pt-BR')}`;
-
-    const finalizarCompraButton = document.getElementById("finalizarCompra");
-    if (carrinho.length > 0) {
-      finalizarCompraButton.disabled = false;
-    } else {
-      finalizarCompraButton.disabled = true;
-    }
-  }
-
-  // Função para remover um item do carrinho
-  function removerDoCarrinho(index) {
-    carrinho.splice(index, 1);
-    atualizarCarrinho();
-  }
-</script>

@@ -14,8 +14,8 @@ CREATE TABLE produtos (
     nome VARCHAR(255) NOT NULL,
     descricao TEXT NOT NULL,
     valor INT NOT NULL,
-    foto INT NOT NULL,
-    categoria INT NOT NULL
+    foto VARCHAR(255) NOT NULL,
+    categoria VARCHAR(255) NOT NULL
    
     
 );

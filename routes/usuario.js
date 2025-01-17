@@ -14,4 +14,6 @@ router.get('/edit/:id', usuarioController.renderEditForm);
 router.put('/edit/:id', usuarioController.updateUsuario);
 router.delete('/delete/:id', usuarioController.deleteUsuario);
 
+router.get('/logout', usuarioController.logoutUsuario);
+
 module.exports = router;

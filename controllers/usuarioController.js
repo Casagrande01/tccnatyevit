@@ -127,7 +127,7 @@ const usuarioController = {
             if (err) {
                 return res.status(500).json({ error: 'Erro ao realizar logout.' });
             }
-            res.redirect('/usuarios/login');
+            res.redirect('/');
         });
     },
 };
